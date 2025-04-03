@@ -115,10 +115,7 @@ toktyp key2tok(char * fplex)
     int len = sizeof(keywordtab) / sizeof(keywordtab[0]) - 1;
     for (int i = 0; i < len; i++) 
     {
-        if (strcmp(fplex, keywordtab[i].text)  == EQUAL) {
-            return keywordtab[i].token;
-        }
-        
+        if (strcmp(fplex, keywordtab[i].text)  == EQUAL) return keywordtab[i].token;
     }
 }
 
@@ -130,10 +127,7 @@ char * tok2lex(toktyp ftok)
     int len = sizeof(tokentab) / sizeof(tokentab[0]) - 1;
     for (int i = 0; i < len; i++) 
     {
-        if (tokentab[i].token == ftok) {
-            return tokentab[i].text;
-        }
-        
+        if (tokentab[i].token == ftok) return tokentab[i].text;
     }
 }
 
