@@ -121,15 +121,18 @@ toktyp lex2tok(char * fplex)
 /**********************************************************************/
 toktyp key2tok(char * fplex)
 {
+    
     int len = sizeof(keywordtab) / sizeof(keywordtab[0]) - 1;
     for (int i = 0; i < len; i++) 
     {
+        printf("want: %d, i: %d, current token: %d, current text: %s\n", fplex, i, keywordtab[i].token, keywordtab[i].text);
         if (strcmp(fplex, keywordtab[i].text)  == EQUAL) return keywordtab[i].token;
     }
+    return (toktyp)258;
 }
 
 /**********************************************************************/
-/* tok2lex - convert a token to a lexeme                              */
+/* tok2lex - convert a token (OR KEYWORD) to a lexeme                              */
 /**********************************************************************/
 char * tok2lex(toktyp ftok)
 {
@@ -138,6 +141,12 @@ char * tok2lex(toktyp ftok)
     {
         if (tokentab[i].token == ftok) return tokentab[i].text;
     }
+    len = sizeof(keywordtab) / sizeof(keywordtab[0]) - 1;
+    for (int i = 0; i < len; i++) 
+    {
+        if (keywordtab[i].token == ftok) return keywordtab[i].text;
+    }
+
 }
 
 /**********************************************************************/
