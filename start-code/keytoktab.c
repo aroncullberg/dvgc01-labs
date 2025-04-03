@@ -104,7 +104,15 @@ void p_toktab()
 /**********************************************************************/
 toktyp lex2tok(char * fplex)
 {
-    printf("\n *** TO BE DONE");  return 0;
+    int output;
+    int len = sizeof(tokentab) / sizeof(tokentab[0]) - 1;
+    for (int i = 0; i < len; i++) 
+    {
+        if(strcmp(fplex, tokentab[i].text) == EQUAL)
+            output = tokentab[i].token;
+            break;
+    }
+    return output;
 }
 
 /**********************************************************************/
