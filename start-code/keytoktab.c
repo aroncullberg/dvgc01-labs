@@ -25,6 +25,8 @@ typedef struct tab {
 	int 	token;
 }tab;
 
+#define EQUAL 0
+
 /**********************************************************************/
 /* data objects (tables)                                              */
 /**********************************************************************/
@@ -110,7 +112,14 @@ toktyp lex2tok(char * fplex)
 /**********************************************************************/
 toktyp key2tok(char * fplex)
 {
-    printf("\n *** TO BE DONE");  return 0;
+    int len = sizeof(keywordtab) / sizeof(keywordtab[0]) - 1;
+    for (int i = 0; i < len; i++) 
+    {
+        if (strcmp(fplex, keywordtab[i].text)  == EQUAL) {
+            return keywordtab[i].token;
+        }
+        
+    }
 }
 
 /**********************************************************************/
@@ -118,7 +127,14 @@ toktyp key2tok(char * fplex)
 /**********************************************************************/
 char * tok2lex(toktyp ftok)
 {
-    printf("\n *** TO BE DONE");  return 0;
+    int len = sizeof(tokentab) / sizeof(tokentab[0]) - 1;
+    for (int i = 0; i < len; i++) 
+    {
+        if (tokentab[i].token == ftok) {
+            return tokentab[i].text;
+        }
+        
+    }
 }
 
 /**********************************************************************/
