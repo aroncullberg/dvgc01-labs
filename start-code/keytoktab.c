@@ -84,7 +84,7 @@ void p_toktab()
     len = sizeof(keywordtab) / sizeof(keywordtab[0]) - 1;
     for (int i = 0; i < len; i++) 
     {
-        printf("%11s  %d\n", keywordtab[i], keywordtab[i]);
+        printf("%11s  %d\n", keywordtab[i].text, keywordtab[i].token);
     }
     printf("________________________________________________________\n");
     printf(" THE PROGRAM TOKENS\n");
@@ -92,7 +92,7 @@ void p_toktab()
     len = sizeof(tokentab) / sizeof(tokentab[0]) - 1;
     for (int i = 0; i < len; i++) 
     {
-        printf("%11s  %d\n", tokentab[i], tokentab[i]);
+        printf("%11s  %d\n", tokentab[i].text, tokentab[i].token);
     }
     
     printf("________________________________________________________\n");
@@ -125,7 +125,7 @@ toktyp key2tok(char * fplex)
     int len = sizeof(keywordtab) / sizeof(keywordtab[0]) - 1;
     for (int i = 0; i < len; i++) 
     {
-        printf("want: %d, i: %d, current token: %d, current text: %s\n", fplex, i, keywordtab[i].token, keywordtab[i].text);
+        printf("want: %s, i: %d, current token: %d, current text: %s\n", fplex, i, keywordtab[i].token, keywordtab[i].text);
         if (strcmp(fplex, keywordtab[i].text)  == EQUAL) return keywordtab[i].token;
     }
     return (toktyp)258;
