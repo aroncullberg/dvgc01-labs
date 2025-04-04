@@ -61,7 +61,15 @@ void p_optab()
 /**********************************************************************/
 int get_otype(int op, int arg1, int arg2)
 {
-    printf("\n *** TO BE DONE"); return 0;
+    int len = sizeof(optab) / sizeof(optab[0]);
+    for (int i = 0; i < len; i++) {
+        if (op == optab[i][0]
+            && arg1 == optab[i][1]
+            && arg2 == optab[i][2]) {
+            return optab[i][3];
+        }
+    }
+    return undef;
 }
 
 /**********************************************************************/
