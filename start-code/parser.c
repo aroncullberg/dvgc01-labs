@@ -78,7 +78,7 @@ static void out(char* s)
 /**********************************************************************/
 static void match(int t)
 {
-    if(DEBUG) printf("\n *** In  match		expected %s found %s",
+    if(DEBUG) printf("\n ------ In  match		expected %s found %s",
                     tok2lex(t), tok2lex(lookahead));
     if (lookahead == t) lookahead = get_token();
     else {
@@ -114,8 +114,6 @@ static void var_dec_list()
     var_dec();
     if (lookahead == id)
         {
-            addv_name(get_lexeme());
-            printf("<<<<<<<<<<<<<<<<<%s\n", get_lexeme());
             var_dec_list();
         }
     out("var_dec_list");
@@ -131,6 +129,7 @@ static void var_dec()
 static void id_list()
 {
     in("id_list");
+    addv_name(get_lexeme());
     match(id);
     if (lookahead == ',')
         {

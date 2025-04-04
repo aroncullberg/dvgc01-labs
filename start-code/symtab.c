@@ -68,21 +68,26 @@ static void addrow(char *fname, toktyp frole, toktyp ftype,
 /**********************************************************************/
 /*  Initialise the symbol table                                       */
 /**********************************************************************/
-static void initst()
-{
-    addrow(tok2lex(predef),  typ, predef, 0, 0);
-    addrow(tok2lex(undef),   typ, predef, 0, 0);
-    addrow(tok2lex(error),   typ, predef, 0, 0);
-    addrow(tok2lex(integer), typ, predef, 4, 0);
-    addrow(tok2lex(boolean), typ, predef, 4, 0);
-    addrow(tok2lex(real),    typ, predef, 8, 0);
-}
+// static void initst()
+// {
+//     addrow(tok2lex(predef),  typ, predef, 0, 0);
+//     addrow(tok2lex(undef),   typ, predef, 0, 0);
+//     addrow(tok2lex(error),   typ, predef, 0, 0);
+//     addrow(tok2lex(integer), typ, predef, 4, 0);
+//     addrow(tok2lex(boolean), typ, predef, 4, 0);
+//     addrow(tok2lex(real),    typ, predef, 8, 0);
+// }
 /**********************************************************************/
 /*  return a reference to the ST (index) if name found else nfound    */
 /**********************************************************************/
 static int get_ref(char * fpname)
 {
-    printf("\n *** TO BE DONE"); return 0;
+    for (int row = 0; row <= numrows; row++) {
+        if (strcmp(get_name(row), fpname) == 0){
+            return row;
+        }
+    }
+    return nfound;
 }
 
 /**********************************************************************/
@@ -93,18 +98,18 @@ static int get_ref(char * fpname)
 /**********************************************************************/
 static void p_symrow(int ftref)
 {
-    printf("\n *** TO BE DONE");
+    printf("%11s%11s%11s%10d%10d\n", name[ftref], tok2lex(role[ftref]), tok2lex(type[ftref]), size[ftref], addr[ftref]);
 }
 
 void p_symtab()
 {
-    printf("________________________________________________________\n");
+    printf("\n________________________________________________________\n");
     printf(" THE SYMBOL TABLE\n");
     printf("________________________________________________________\n");
     printf("%11s%11s%11s%10s%10s\n", "NAME", "ROLE", "TYPE", "SIZE", "ADDR");
     printf("________________________________________________________\n");
     for (int i = 0; i <= numrows; i++) {
-        printf("%11s%11s%11s%10d%10d\n", name[i], tok2lex(role[i]), tok2lex(type[i]), size[i], addr[i]);
+        p_symrow(i);
     }
     printf("________________________________________________________\n");
     printf(" STATIC STORAGE REQUIRED is %2d BYTES\n", get_size(0));
@@ -187,7 +192,12 @@ void setv_type(toktyp ftype)
 /**********************************************************************/
 toktyp get_ntype(char * fpname)
 {
-    printf("\n *** TO BE DONE"); return 0;
+    for (int row = 0; row <= numrows; row++) {
+        if (strcmp(get_name(row), fpname) == 0){
+            return get_type(row);
+        }
+    }
+    return nfound;
 }
 
 /**********************************************************************/
