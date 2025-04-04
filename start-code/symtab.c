@@ -61,7 +61,7 @@ static void addrow(char *fname, toktyp frole, toktyp ftype,
 {
     strcpy(name[numrows],fname);
     role[numrows] = frole;
-    type[numrows] = type;
+    type[numrows] = ftype;
     size[numrows] = fsize;
     addr[numrows] = faddr;
     numrows++;
@@ -103,10 +103,10 @@ void p_symtab()
     printf("________________________________________________________\n");
     printf(" THE SYMBOL TABLE\n");
     printf("________________________________________________________\n");
-    //        NAME       ROLE       TYPE      SIZE      ADDR     
-    printf("       NAME       ROLE       TYPE      SIZE      ADDR   \n");
+    printf("%11s%11s%11s%10s%10s\n", "NAME", "ROLE", "TYPE", "SIZE", "ADDR");
+    printf("________________________________________________________\n");
     for (int i = 0; i < numrows; i++) {
-        printf("    %10s %10s %10s %10d %10d", name[i], role[i], type[i], size[i], addr[i]);
+        printf("%11s%11s%11s%10d%10d\n", name[i], tok2lex(role[i]), tok2lex(type[i]), size[i], addr[i]);
     }
     printf("________________________________________________________\n");
     printf("________________________________________________________\n");
