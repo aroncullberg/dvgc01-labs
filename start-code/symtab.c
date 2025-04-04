@@ -59,12 +59,11 @@ static void set_addr(int ftref, int    faddr)  { addr[ftref] = faddr; }
 static void addrow(char *fname, toktyp frole, toktyp ftype,
                    int fsize, int faddr)
 {
-    strcpy(name[numrows],fname);
-    role[numrows] = frole;
-    type[numrows] = ftype;
-    size[numrows] = fsize;
-    addr[numrows] = faddr;
-    numrows++;
+    set_name(numrows, fname);
+    set_role(numrows, frole);
+    set_type(numrows, ftype);
+    set_size(numrows, fsize);
+    set_addr(numrows++, faddr);
 }
 /**********************************************************************/
 /*  Initialise the symbol table                                       */
@@ -119,7 +118,8 @@ void p_symtab()
 /**********************************************************************/
 void addp_name(char * fpname)
 {
-    printf("\n *** TO BE DONE");
+    strcpy(name[0],fpname);
+    set_role(numrows, program);
 }
 
 /**********************************************************************/
@@ -127,7 +127,8 @@ void addp_name(char * fpname)
 /**********************************************************************/
 void addv_name(char * fpname)
 {
-    printf("\n *** TO BE DONE");
+    strcpy(name[++numrows],fpname);
+    set_role(numrows, var);
 }
 
 /**********************************************************************/
