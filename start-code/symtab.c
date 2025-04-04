@@ -99,7 +99,19 @@ static void p_symrow(int ftref)
 
 void p_symtab()
 {
-    printf("\n *** TO BE DONE");
+    initst();
+    printf("________________________________________________________\n");
+    printf(" THE SYMBOL TABLE\n");
+    printf("________________________________________________________\n");
+    //        NAME       ROLE       TYPE      SIZE      ADDR     
+    printf("       NAME       ROLE       TYPE      SIZE      ADDR   \n");
+    for (int i = 0; i < numrows; i++) {
+        printf("    %10s %10s %10s %10d %10d", name[i], role[i], type[i], size[i], addr[i]);
+    }
+    printf("________________________________________________________\n");
+    printf("________________________________________________________\n");
+    //  STATIC STORAGE REQUIRED is 0 BYTES
+    printf("________________________________________________________\n");
 }
 
 /**********************************************************************/
