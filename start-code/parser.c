@@ -8,8 +8,10 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+
 #include "parser.h"
 #include "keytoktab.h"
+#include "lexer.h"
 
 static void var_part();
 static void var_dec_list();
@@ -36,7 +38,7 @@ static void operand();
 /**********************************************************************/
 /* OBJECT ATTRIBUTES FOR THIS OBJECT (C MODULE)                       */
 /**********************************************************************/
-#define DEBUG 1
+#define DEBUG 0
 static int  lookahead=0;
 static int  is_parse_ok=1;
 
@@ -49,19 +51,19 @@ static int  is_parse_ok=1;
 /**********************************************************************/
 /* Simulate the token stream for a given program                      */
 /**********************************************************************/
-static int tokens[] = { program, id, '(', input, ',', output, ')', ';', 
-    var, id, ',', id, ',', id, ':', integer, ';', begin, 
-    id, assign, id, '+', id, '*', number, end, '.', 
-    '$'};
+// static int tokens[] = { program, id, '(', input, ',', output, ')', ';', 
+//     var, id, ',', id, ',', id, ':', integer, ';', begin, 
+//     id, assign, id, '+', id, '*', number, end, '.', 
+//     '$'};
 
 /**********************************************************************/
 /*  Simulate the lexer -- get the next token from the buffer          */
 /**********************************************************************/
-static int pget_token()
-{
-    static int i=0;
-    if (tokens[i] != '$') return tokens[i++]; else return '$';
-}
+// static int pget_token()
+// {
+//     static int i=0;
+//     if (tokens[i] != '$') return tokens[i++]; else return '$';
+// }
 
 /**********************************************************************/
 /*  PRIVATE METHODS for this OBJECT  (using "static" in C)            */
@@ -79,9 +81,9 @@ static void out(char* s)
 /**********************************************************************/
 static void match(int t)
 {
-    if(DEBUG) printf("\n --------In match expected: %s, found: %s",
+    if(DEBUG) printf("\n *** In  match		expected %s found %s",
                     tok2lex(t), tok2lex(lookahead));
-    if (lookahead == t) lookahead = pget_token();
+    if (lookahead == t) lookahead = get_token();
     else {
     is_parse_ok=0;
     printf("\n *** Unexpected Token: expected: %s found: %s (in match)",
@@ -238,7 +240,7 @@ static void operand()
 int parser()
 {
     in("parser");
-    lookahead = pget_token();       // get the first token
+    lookahead = get_token();       // get the first token
     program_header();               // call the first grammar rule
     var_part();
     stat_part();

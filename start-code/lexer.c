@@ -36,7 +36,15 @@ static int  plex  = 0;               /* current index lexeme  buffer  */
 
 static void get_prog()
 {
-    printf("\n *** TO BE DONE");
+    // while (fgets(buffer, BUFSIZ, stdin) != NULL) {
+    //     printf("Läst in: %s", buffer);
+    // }
+    int i = 0;
+    while ((buffer[i] = fgetc(stdin)) != EOF) {
+        i++;
+    }
+    buffer[i] = '$';
+    buffer[++i] = '\0';
 }
 
 /**********************************************************************/
@@ -45,7 +53,11 @@ static void get_prog()
 
 static void pbuffer()
 {
-    printf("\n *** TO BE DONE");
+    printf("\n________________________________________________________");
+    printf("\n THE PROGRAM TEXT");
+    printf("\n________________________________________________________");
+    printf("\n%s", buffer);
+    printf("\n________________________________________________________");
 }
 
 /**********************************************************************/
@@ -54,7 +66,9 @@ static void pbuffer()
 
 static void get_char()
 {
-    printf("\n *** TO BE DONE");
+    lexbuf[plex] = buffer[pbuf];
+    pbuf++;
+    plex++;
 }
 
 /**********************************************************************/
@@ -69,7 +83,59 @@ static void get_char()
 /**********************************************************************/
 int get_token()
 {
-    printf("\n *** TO BE DONE"); return 0;
+    if (pbuf == 0) {
+        get_prog();
+        pbuffer();
+    }
+
+    memset(lexbuf, '\0', LEXSIZE);
+    plex=0;
+
+    while(isspace(buffer[pbuf])) pbuf++;
+
+    if (buffer[pbuf] == ':') {
+        get_char();
+
+        if (buffer[pbuf] == '=') {
+            get_char();
+            lexbuf[plex++] = '\0';
+
+            return lex2tok(lexbuf);
+        }
+
+        lexbuf[plex++] = '\0';
+
+        return lex2tok(lexbuf);
+    }
+
+    if (isdigit(buffer[pbuf])) {
+        get_char();
+
+        while (isdigit(buffer[pbuf])) {
+            get_char();
+        }
+
+
+        lexbuf[plex++] = '\0';
+
+        return number;
+    }
+
+    if (buffer[pbuf] >= 33 && buffer[pbuf] <= 64) {
+        get_char();
+        lexbuf[plex++] = '\0';
+
+        return lex2tok(lexbuf);
+    }
+
+    
+
+    // while (buffer[pbuf] != ' ' && buffer[pbuf] != '(') {
+    while (isalnum(buffer[pbuf])) {
+        get_char();
+    }
+    lexbuf[plex++] = '\0';
+    return key2tok(lexbuf); // Changed this to be key2tok had an issue where it would trigger failt to identify number as a id instead of numerical
 }
 
 /**********************************************************************/
@@ -77,7 +143,7 @@ int get_token()
 /**********************************************************************/
 char * get_lexeme()
 {
-    printf("\n *** TO BE DONE"); return "$";
+    return lexbuf;
 }
 
 /**********************************************************************/

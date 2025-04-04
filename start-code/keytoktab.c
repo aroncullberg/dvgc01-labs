@@ -106,20 +106,6 @@ toktyp lex2tok(char * fplex)
 {
     int len = sizeof(tokentab) / sizeof(tokentab[0]) - 1;
 
-    // int wordlen = 0;
-
-    // while(*fplex) {
-    //     wordlen++;
-    //     *fplex++;
-    // }
-    // for (int i = 0; i <  wordlen; i++) {
-    //     *fplex--;
-    // }
-
-
-    // printf("length of %s is %d\n", fplex, wordlen);
-
-
     for (int i = 0; i < len; i++)
     {
         if(strcmp(fplex, tokentab[i].text) == EQUAL) {
@@ -130,11 +116,11 @@ toktyp lex2tok(char * fplex)
     len = sizeof(keywordtab) / sizeof(keywordtab[0]) - 1;
     for (int i = 0; i < len; i++) 
     {
-        if (strstr(fplex, keywordtab[i].text) == EQUAL) {
+        if (strcmp(fplex, keywordtab[i].text) == EQUAL) {
             return keywordtab[i].token;
         }
     }
-    return nfound;
+    return id;
 }
 
 /**********************************************************************/
