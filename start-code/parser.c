@@ -27,9 +27,9 @@ static void operand();
 /**********************************************************************/
 /* Other OBJECT's METHODS (IMPORTED)                                  */
 /**********************************************************************/
-#include "keytoktab.h"   */       /* when the keytoktab is added   */
-#include "lexer.h"       */       /* when the lexer     is added   */
-#include "symtab.h"      */       /* when the symtab    is added   */
+#include "keytoktab.h"          /* when the keytoktab is added   */
+#include "lexer.h"              /* when the lexer     is added   */
+#include "symtab.h"             /* when the symtab    is added   */
 /* #include "optab.h"       */       /* when the optab     is added   */
 
 /**********************************************************************/
@@ -94,7 +94,10 @@ static void match(int t)
 static void program_header()
 {
     in("program_header");
-    match(program); match(id); match('('); match(input); match(','); match(output); match(')'); match(';');
+    match(program);
+    addp_name(get_lexeme());
+    match(id); match('('); match(input); match(','); match(output); match(')'); match(';');
+
     out("program_header");
 }
 
@@ -111,6 +114,8 @@ static void var_dec_list()
     var_dec();
     if (lookahead == id)
         {
+            addv_name(get_lexeme());
+            printf("<<<<<<<<<<<<<<<<<%s\n", get_lexeme());
             var_dec_list();
         }
     out("var_dec_list");
@@ -141,12 +146,15 @@ static void type()
     {
         case integer:
             match(integer);
+            setv_type(integer);
             break;
         case real:
             match(real);
+            setv_type(real);
             break;
         case boolean:
             match(boolean);
+            setv_type(boolean);
             break;
     }
     out("type");
