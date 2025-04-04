@@ -9,6 +9,7 @@
 #include <ctype.h>
 #include <string.h>
 #include "parser.h"
+#include "keytoktab.h"
 
 static void var_part();
 static void var_dec_list();
@@ -44,13 +45,13 @@ static int  is_parse_ok=1;
 /**********************************************************************/
 /* define tokens + keywords NB: remove this when keytoktab.h is added */
 /**********************************************************************/
-enum tvalues { program = 257, id, input, output, var, begin, end, number, integer, boolean, real, coleq};
+//enum tvalues { program = 257, id, input, output, var, begin, end, number, integer, boolean, real, coleq};
 /**********************************************************************/
 /* Simulate the token stream for a given program                      */
 /**********************************************************************/
 static int tokens[] = { program, id, '(', input, ',', output, ')', ';', 
     var, id, ',', id, ',', id, ':', integer, ';', begin, 
-    id, coleq, id, '+', id, '*', number, end, '.', 
+    id, assign, id, '+', id, '*', number, end, '.', 
     '$'};
 
 /**********************************************************************/
@@ -78,13 +79,13 @@ static void out(char* s)
 /**********************************************************************/
 static void match(int t)
 {
-    if(DEBUG) printf("\n --------In match expected: %4d, found: %4d",
-                    t, lookahead);
+    if(DEBUG) printf("\n --------In match expected: %s, found: %s",
+                    tok2lex(t), tok2lex(lookahead));
     if (lookahead == t) lookahead = pget_token();
     else {
     is_parse_ok=0;
-    printf("\n *** Unexpected Token: expected: %4d found: %4d (in match)",
-              t, lookahead);
+    printf("\n *** Unexpected Token: expected: %s found: %s (in match)",
+              tok2lex(t), tok2lex(lookahead));
     }
 }
 
@@ -180,7 +181,7 @@ static void stat()
 static void assign_stat()
 {
     in("assign_stat");
-    match(id); match(coleq); expr();
+    match(id); match(assign); expr();
     out("assign_stat");
 }
 
