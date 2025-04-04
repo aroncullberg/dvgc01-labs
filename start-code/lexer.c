@@ -108,18 +108,18 @@ int get_token()
         return lex2tok(lexbuf);
     }
 
-    if (isdigit(buffer[pbuf])) {
-        get_char();
+    // if (isdigit(buffer[pbuf])) {
+    //     get_char();
 
-        while (isdigit(buffer[pbuf])) {
-            get_char();
-        }
+    //     while (isdigit(buffer[pbuf])) {
+    //         get_char();
+    //     }
 
 
-        lexbuf[plex++] = '\0';
+    //     lexbuf[plex++] = '\0';
 
-        return number;
-    }
+    //     return number;
+    // }
 
     if (buffer[pbuf] >= 33 && buffer[pbuf] <= 64) {
         get_char();
@@ -135,7 +135,8 @@ int get_token()
         get_char();
     }
     lexbuf[plex++] = '\0';
-    return key2tok(lexbuf); // Changed this to be key2tok had an issue where it would trigger failt to identify number as a id instead of numerical
+    // return key2tok(lexbuf); // Changed this to be key2tok had an issue where it would trigger failt to identify number as a id instead of numerical
+    return lex2tok(lexbuf); // Changed this to be key2tok had an issue where it would trigger failt to identify number as a id instead of numerical
 }
 
 /**********************************************************************/
