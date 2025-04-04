@@ -104,16 +104,37 @@ void p_toktab()
 /**********************************************************************/
 toktyp lex2tok(char * fplex)
 {
-    int output;
     int len = sizeof(tokentab) / sizeof(tokentab[0]) - 1;
-    for (int i = 0; i < len; i++) 
+
+    // int wordlen = 0;
+
+    // while(*fplex) {
+    //     wordlen++;
+    //     *fplex++;
+    // }
+    // for (int i = 0; i <  wordlen; i++) {
+    //     *fplex--;
+    // }
+
+
+    // printf("length of %s is %d\n", fplex, wordlen);
+
+
+    for (int i = 0; i < len; i++)
     {
         if(strcmp(fplex, tokentab[i].text) == EQUAL) {
-            output = tokentab[i].token;
-            break;
+            return tokentab[i].token;
         }
     }
-    return output;
+
+    len = sizeof(keywordtab) / sizeof(keywordtab[0]) - 1;
+    for (int i = 0; i < len; i++) 
+    {
+        if (strstr(fplex, keywordtab[i].text) == EQUAL) {
+            return keywordtab[i].token;
+        }
+    }
+    return nfound;
 }
 
 /**********************************************************************/
@@ -125,10 +146,10 @@ toktyp key2tok(char * fplex)
     int len = sizeof(keywordtab) / sizeof(keywordtab[0]) - 1;
     for (int i = 0; i < len; i++) 
     {
-        printf("want: %s, i: %d, current token: %d, current text: %s\n", fplex, i, keywordtab[i].token, keywordtab[i].text);
+        // printf("want: %s, i: %d, current token: %d, current text: %s\n", fplex, i, keywordtab[i].token, keywordtab[i].text);
         if (strcmp(fplex, keywordtab[i].text)  == EQUAL) return keywordtab[i].token;
     }
-    return (toktyp)258;
+    return (toktyp)258; // TODO: change to return id; maybe?
 }
 
 /**********************************************************************/
@@ -146,9 +167,14 @@ char * tok2lex(toktyp ftok)
     {
         if (keywordtab[i].token == ftok) return keywordtab[i].text;
     }
-
+    return "-1";
 }
 
 /**********************************************************************/
 /* End of code                                                        */
 /**********************************************************************/
+
+/* 
+Run this to check if it differs from the expected output
+clear && gcc -Wall -o tkeytoktab Dkeytoktab.c keytoktab.c && ./tkeytoktab > tkeytotab.out && diff tkeytotab.out Dkeytoktab.out
+*/
