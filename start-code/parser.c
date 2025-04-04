@@ -8,10 +8,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
-
-#include "parser.h"
-#include "keytoktab.h"
-#include "lexer.h"
+// #include "parser.h"
 
 static void var_part();
 static void var_dec_list();
@@ -30,9 +27,9 @@ static void operand();
 /**********************************************************************/
 /* Other OBJECT's METHODS (IMPORTED)                                  */
 /**********************************************************************/
-/* #include "keytoktab.h"   */       /* when the keytoktab is added   */
-/* #include "lexer.h"       */       /* when the lexer     is added   */
-/* #include "symtab.h"      */       /* when the symtab    is added   */
+#include "keytoktab.h"   */       /* when the keytoktab is added   */
+#include "lexer.h"       */       /* when the lexer     is added   */
+#include "symtab.h"      */       /* when the symtab    is added   */
 /* #include "optab.h"       */       /* when the optab     is added   */
 
 /**********************************************************************/
@@ -245,6 +242,7 @@ int parser()
     var_part();
     stat_part();
     out("parser");
+    p_symtab();
     return is_parse_ok;             // status indicator
 }
 
