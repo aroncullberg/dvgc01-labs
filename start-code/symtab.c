@@ -98,18 +98,16 @@ static void p_symrow(int ftref)
 
 void p_symtab()
 {
-    initst();
     printf("________________________________________________________\n");
     printf(" THE SYMBOL TABLE\n");
     printf("________________________________________________________\n");
     printf("%11s%11s%11s%10s%10s\n", "NAME", "ROLE", "TYPE", "SIZE", "ADDR");
     printf("________________________________________________________\n");
-    for (int i = 0; i < numrows; i++) {
+    for (int i = 0; i <= numrows; i++) {
         printf("%11s%11s%11s%10d%10d\n", name[i], tok2lex(role[i]), tok2lex(type[i]), size[i], addr[i]);
     }
     printf("________________________________________________________\n");
-    printf("________________________________________________________\n");
-    //  STATIC STORAGE REQUIRED is 0 BYTES
+    printf(" STATIC STORAGE REQUIRED is %2d BYTES\n", get_size(0));
     printf("________________________________________________________\n");
 }
 
@@ -120,6 +118,8 @@ void addp_name(char * fpname)
 {
     strcpy(name[0],fpname);
     set_role(numrows, program);
+    set_type(numrows, program);
+    set_size(numrows, startp); // TODO: Is this what 'startp' is? is it always 0?
 }
 
 /**********************************************************************/
@@ -127,7 +127,8 @@ void addp_name(char * fpname)
 /**********************************************************************/
 void addv_name(char * fpname)
 {
-    strcpy(name[++numrows],fpname);
+    numrows++;
+    strcpy(name[numrows],fpname);
     set_role(numrows, var);
 }
 
@@ -137,7 +138,12 @@ void addv_name(char * fpname)
 /**********************************************************************/
 int find_name(char * fpname)
 {
-    printf("\n *** TO BE DONE"); return 0;
+    for (int row = 0; row <= numrows; row++) {
+        if (strcmp(get_name(row), fpname) == 0){
+            return 1;
+        }
+    }
+    return 0;
 }
 
 /**********************************************************************/
@@ -145,9 +151,34 @@ int find_name(char * fpname)
 /**********************************************************************/
 void setv_type(toktyp ftype)
 {
-    for (int i = numrows; i > 0 ; i--) {
-        if (get_type(i) >= 268 && get_type(i) <= 276)
-        set_type(i, ftype);
+    for (int row = numrows; row >= 0 ; row--) {
+        if (get_type(row) >= 268 && get_type(row) <= 276) break;
+        set_type(row, ftype);
+        switch (ftype)
+        {
+        case integer:
+            set_size(row, 4); // How to know size? (pls no your mom joke)
+            set_size(0, get_size(0) + get_size(row));
+            // set_addr(row+1, get_addr(row) + get_size(row));
+            break;
+        case real:
+            set_size(row, 8);                                // Set our own size
+            set_size(0, get_size(0) + get_size(row));       // incremenet program szie
+            // set_addr(row+1, get_addr(row) + get_size(row)); // set next start adres
+            break;
+        case boolean:
+            set_size(row, 4);
+            set_size(0, get_size(0) + get_size(row));
+            // set_addr(row+1, get_addr(row) + get_size(row));
+            break;
+        
+        default:
+            break;
+        }
+    }
+    
+    for (int row = 1; row <= numrows; row++) {
+        set_addr(row+1, get_addr(row) + get_size(row));
     }
 }
 
