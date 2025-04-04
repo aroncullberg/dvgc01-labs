@@ -59,7 +59,12 @@ static void set_addr(int ftref, int    faddr)  { addr[ftref] = faddr; }
 static void addrow(char *fname, toktyp frole, toktyp ftype,
                    int fsize, int faddr)
 {
-    printf("\n *** TO BE DONE");
+    strcpy(name[numrows],fname);
+    role[numrows] = frole;
+    type[numrows] = type;
+    size[numrows] = fsize;
+    addr[numrows] = faddr;
+    numrows++;
 }
 /**********************************************************************/
 /*  Initialise the symbol table                                       */
