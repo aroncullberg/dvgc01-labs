@@ -144,7 +144,10 @@ int find_name(char * fpname)
 /**********************************************************************/
 void setv_type(toktyp ftype)
 {
-    printf("\n *** TO BE DONE");
+    for (int i = numrows; i > 0 ; i--) {
+        if (get_type(i) >= 268 && get_type(i) <= 276)
+        set_type(i, ftype);
+    }
 }
 
 /**********************************************************************/
