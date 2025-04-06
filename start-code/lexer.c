@@ -53,6 +53,9 @@ static void get_prog()
 
 static void pbuffer()
 {
+    // for (int i = 0; i < 100; i++) {
+    //     printf("\'%c\' - %d\n", buffer[i], buffer[i]);
+    // }
     printf("\n________________________________________________________");
     printf("\n THE PROGRAM TEXT");
     printf("\n________________________________________________________");
@@ -114,7 +117,6 @@ int get_token()
         while (isdigit(buffer[pbuf])) {
             get_char();
         }
-
 
         lexbuf[plex++] = '\0';
 

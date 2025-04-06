@@ -10,19 +10,7 @@
 #include <string.h>
 // #include "parser.h"
 
-static void var_part();
-static void var_dec_list();
-static void var_dec();
-static void id_list();
-static void type();
-static void stat_part();
-static void stat_list();
-static void stat();
-static void assign_stat();
-static void expr();
-static void term();
-static void factor();
-static void operand();
+
 
 /**********************************************************************/
 /* Other OBJECT's METHODS (IMPORTED)                                  */
@@ -30,7 +18,7 @@ static void operand();
 #include "keytoktab.h"          /* when the keytoktab is added   */
 #include "lexer.h"              /* when the lexer     is added   */
 #include "symtab.h"             /* when the symtab    is added   */
-/* #include "optab.h"       */       /* when the optab     is added   */
+#include "optab.h"             /* when the optab     is added   */
 
 /**********************************************************************/
 /* OBJECT ATTRIBUTES FOR THIS OBJECT (C MODULE)                       */
@@ -83,14 +71,31 @@ static void match(int t)
     if (lookahead == t) lookahead = get_token();
     else {
     is_parse_ok=0;
-    printf("\n *** Unexpected Token: expected: %s found: %s (in match)",
-              tok2lex(t), tok2lex(lookahead));
+    // printf("\n *** Unexpected Token: expected: %s found: %s (in match)",
+    //           tok2lex(t), tok2lex(lookahead));
+    printf("\n SYNTAX: %s found: %s",
+        tok2lex(t), tok2lex(lookahead));
     }
 }
 
 /**********************************************************************/
 /* The grammar functions                                              */
 /**********************************************************************/
+
+static void var_part();
+static void var_dec_list();
+static void var_dec();
+static void id_list();
+static void type();
+static void stat_part();
+static void stat_list();
+static void stat();
+static void assign_stat();
+static toktyp expr();
+static toktyp term();
+static toktyp factor();
+static toktyp operand();
+
 static void program_header()
 {
     in("program_header");
@@ -187,51 +192,77 @@ static void stat()
 static void assign_stat()
 {
     in("assign_stat");
-    match(id); match(assign); expr();
+    printf("\n<<<<<<<<<<<%s>>>>>>>>>>>\n\n", get_lexeme());
+    toktyp idtype = get_ntype(get_lexeme());
+    printf("\nid Type: %s - %d\n", tok2lex(idtype), idtype);
+    match(id); match(assign); 
+    toktyp exprtype = expr();
+    printf("\nexpr Type: %s - %d\n", tok2lex(exprtype), exprtype);
+
+    if (idtype != exprtype) {
+        printf("SEMANTIC: Assign types: %s := %s", tok2lex(idtype), tok2lex(exprtype));
+    }
     out("assign_stat");
 }
 
-static void expr()
+static toktyp expr()
 {
     in("expr");
-    term();
+    toktyp left = term();
     if (lookahead == '+')
         {
-            match('+'); expr();
+            match('+');
+            toktyp right = expr();
+            return get_otype('+', left, right);
         }
+    return nfound;
     out("expr");
 }
 
-static void term()
+static toktyp term()
 {
     in("term");
-    factor();
+    // factor();
+    toktyp left = factor();
     if (lookahead == '*')
         {
-            match('*'); term();
+            match('*'); 
+            toktyp right = term();
+            return get_otype('*', left, term());
         }
+    return nfound;
     out("term");
 }
 
-static void factor()
+static toktyp factor()
 {
     in("factor");
+    toktyp type;
     if (lookahead == '(')
         {
-            match('('); expr(); match(')');
+            match('('); type = expr(); match(')');
         }
     else
-        operand();
+        type = operand();
+    return type;
     out("factor");
 }
 
-static void operand()
+static toktyp operand()
 {
     in("operand");
+    toktyp type = nfound;
     if (lookahead == id)
+    {
+        type = get_ntype(get_lexeme());
         match(id);
+    }
     else if(lookahead == number)
+    {
+        type = integer;
         match(number);
+    }
+    return type;
     out("operand");
 }
 
