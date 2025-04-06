@@ -27,6 +27,7 @@
 static int  lookahead=0;
 static int  is_parse_ok=1;
 
+#define char👉 char*
 /**********************************************************************/
 /* RAPID PROTOTYPING - simulate the token stream & lexer (get_token)  */
 /**********************************************************************/
@@ -134,6 +135,11 @@ static void var_dec()
 static void id_list()
 {
     in("id_list");
+    char👉 lexme = get_lexeme();
+    if (find_name(lexme)){
+        is_parse_ok = 0; // Are we allowed to touch this?
+        printf("\n SEMANTIC: ID already declared: %s", lexme);
+    }
     addv_name(get_lexeme());
     match(id);
     if (lookahead == ',')
@@ -261,8 +267,12 @@ static toktyp operand()
     toktyp type = nfound;
     if (lookahead == id)
     {
-        type = get_ntype(get_lexeme());
-        // printf("\n\nAttempting to match %s to %s\n\n", get_lexeme(), tok2lex(get_ntype(get_lexeme())));
+        char👉 lexme = get_lexeme();
+        if (!find_name(lexme)) {
+            is_parse_ok = 0;
+            printf("\n SEMANTIC: ID NOT declared: %s", lexme);
+        }
+        type = get_ntype(lexme);
         match(id);
     }
     else if(lookahead == number)
