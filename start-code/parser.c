@@ -75,9 +75,9 @@ static void match(int t)
     // printf("\n *** Unexpected Token: expected: %s found: %s (in match)",
     //           tok2lex(t), tok2lex(lookahead));
     if (t == id) {
-        printf("\n SYNTAX:   ID expected found %s", get_lexeme());
+        printf("\nSYNTAX:   ID expected found %s", get_lexeme());
     } else {
-        printf("\n SYNTAX:   Symbol expected %s found %s", tok2lex(t), tok2lex(lookahead));
+        printf("\nSYNTAX:   Symbol expected %s found %s", tok2lex(t), get_lexeme());
         }
     }
 }
@@ -141,7 +141,7 @@ static void id_list()
     char👉 lexme = get_lexeme();
     if (find_name(lexme)){
         is_parse_ok = 0; // Are we allowed to touch this?
-        printf("\n SEMANTIC: ID already declared: %s", lexme);
+        printf("\nSEMANTIC: ID already declared: %s", lexme);
     }
     addv_name(get_lexeme());
     match(id);
@@ -177,6 +177,8 @@ static void stat_part()
 {
     in("static_part");
     match(begin); stat_list(); match(end); match('.');
+
+    
     out("static_part");
 }
 
@@ -207,13 +209,18 @@ static void assign_stat()
     left_type = get_ntype(get_lexeme());
     //  printf("\nid Type: %s - %d\n", tok2lex(left_type), left_type);
     match(id); 
-    match(assign); 
+    match(assign);
     right_type = expr(); 
     // printf("\nexpr Type: %s - %d\n", tok2lex(right_type), right_type);
 
-    if (left_type != right_type) {
-        printf("\n SEMANTIC: Assign types: %s := %s", tok2lex(left_type), tok2lex(right_type));
+    if (right_type == nfound) {
+        printf("\nSYTNAX:   Operand expected");
     }
+    if (left_type != right_type) {
+        printf("\nSEMANTIC: Assign types: %s := %s", tok2lex(left_type), tok2lex(right_type));
+    }
+
+    
     out("assign_stat");
 }
 
@@ -272,11 +279,13 @@ static toktyp operand()
     {
         char👉 lexme = get_lexeme();
         if (!find_name(lexme)) {
-            is_parse_ok = 0;
-            printf("\n SEMANTIC: ID NOT declared: %s", lexme);
+            // is_parse_ok = 0;
+            printf("\nSEMANTIC: ID NOT declared: %s", lexme);
+            type = nfound;
+        } else {
+            type = get_ntype(lexme);
+            match(id);
         }
-        type = get_ntype(lexme);
-        match(id);
     }
     else if(lookahead == number)
     {
@@ -300,8 +309,18 @@ int parser()
     program_header();               // call the first grammar rule
     var_part();
     stat_part();
+
+    if (!is_parse_ok) {
+        printf("\nSYNTAX:   Extra symbols after end of parse!\n          ");
+        printf("%s ", get_lexeme());
+        while (get_token() != '$') printf("%s ", get_lexeme());
+
+    }
+
     out("parser");
     p_symtab();
+    // if parseok do get_tokena na dpirint it?
+    
     return is_parse_ok;             // status indicator
 }
 

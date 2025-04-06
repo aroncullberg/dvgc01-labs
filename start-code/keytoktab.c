@@ -144,12 +144,12 @@ toktyp key2tok(char * fplex)
 char * tok2lex(toktyp ftok)
 {
     int len;
-    len = sizeof(keywordtab) / sizeof(keywordtab[0]);
+    len = sizeof(keywordtab) / sizeof(keywordtab[0]) -1;
     for (int i = 0; i < len; i++) 
     {
         if (keywordtab[i].token == ftok) return keywordtab[i].text;
     }
-    len = sizeof(tokentab) / sizeof(tokentab[0]);
+    len = sizeof(tokentab) / sizeof(tokentab[0]) -1;
     for (int i = 0; i < len; i++) 
     {
         if (tokentab[i].token == ftok) return tokentab[i].text;
