@@ -104,8 +104,15 @@ static void program_header()
 {
     in("program_header");
     match(program);
-    addp_name(get_lexeme());
-    match(id); match('('); match(input); match(','); match(output); match(')'); match(';');
+    if (lookahead == id) {
+        addp_name(get_lexeme());
+    } else {
+        addp_name("???");
+        // printf("\nSYNTAX:   ID expected found %s", get_lexeme());
+        is_parse_ok = 0;
+    }
+    match(id);
+     match('('); match(input); match(','); match(output); match(')'); match(';');
 
     out("program_header");
 }
@@ -139,16 +146,24 @@ static void id_list()
 {
     in("id_list");
     char👉 lexme = get_lexeme();
-    if (find_name(lexme)){
-        is_parse_ok = 0; // Are we allowed to touch this?
-        printf("\nSEMANTIC: ID already declared: %s", lexme);
-    }
-    addv_name(get_lexeme());
-    match(id);
-    if (lookahead == ',')
-        {
-            match(','); id_list();
+    if (lookahead == id) {
+        if (find_name(lexme)){
+            is_parse_ok = 0; // Are we allowed to touch this?
+            printf("\nSEMANTIC: ID already declared: %s", lexme);
+        } else {
+            addv_name(get_lexeme());
         }
+        match(id);
+
+    } else {
+        is_parse_ok = 0;
+        printf("\nSYNTAX:   ID excpected found %s", lexme);
+    }
+    
+    if (lookahead == ',')
+    {
+        match(','); id_list();
+    }
     out("id_list");
 }
 
@@ -168,6 +183,11 @@ static void type()
         case boolean:
             match(boolean);
             setv_type(boolean);
+            break;
+        default:
+            is_parse_ok = 0;
+            printf("\nSYNTAX:   Type name expected found %s", get_lexeme());
+            setv_type(error);
             break;
     }
     out("type");
@@ -206,17 +226,26 @@ static void assign_stat()
     toktyp left_type;
     toktyp right_type;
     
-    left_type = get_ntype(get_lexeme());
-    //  printf("\nid Type: %s - %d\n", tok2lex(left_type), left_type);
+    char👉 lexme = get_lexeme();
+    left_type = get_ntype(lexme);
+    if (!find_name(lexme) && lookahead == id) {
+        printf("\nSEMANTIC: ID NOT declared: %s", lexme);
+        is_parse_ok = 0;
+    }
     match(id); 
     match(assign);
+    if (lookahead == '+' || lookahead == '*') {
+        is_parse_ok = 0;
+        printf("\nSYNTAX:   Operand Expected");
+    }
     right_type = expr(); 
-    // printf("\nexpr Type: %s - %d\n", tok2lex(right_type), right_type);
 
     if (right_type == nfound) {
-        printf("\nSYTNAX:   Operand expected");
+        is_parse_ok = 0;
+        printf("\nSYNTAX:   Operand Expected");
     }
     if (left_type != right_type) {
+        is_parse_ok = 0;
         printf("\nSEMANTIC: Assign types: %s := %s", tok2lex(left_type), tok2lex(right_type));
     }
 
@@ -232,7 +261,6 @@ static toktyp expr()
         {
             match('+');
             toktyp right = expr();
-            // printf("\n>>>>>>>>>>>>>>>>>>>>expr - %s(%d) | left: %s(%d) right: %s(%d)\n", tok2lex(get_otype('+', left, right)), get_otype('+', left, right), tok2lex(left), left, tok2lex(right), right);
             return get_otype('+', left, right);
         }
     return left;
@@ -248,7 +276,6 @@ static toktyp term()
         {
             match('*'); 
             toktyp right = term();
-            // printf("\n>>>>>>>>>>>>>>>>>>>>term - %s(%d) | left: %s(%d) right: %s(%d)\n", tok2lex(get_otype('+', left, right)), get_otype('+', left, right), tok2lex(left), left, tok2lex(right), right);
             return get_otype('*', left, right);
         }
     return left;
@@ -266,7 +293,6 @@ static toktyp factor()
     else
         type = operand();
         
-    // printf("\n>>>>>>>>>>>>>>>>>>>>factor - %s(%d)\n", tok2lex(type), type);
     return type;
     out("factor");
 }
@@ -279,13 +305,13 @@ static toktyp operand()
     {
         char👉 lexme = get_lexeme();
         if (!find_name(lexme)) {
-            // is_parse_ok = 0;
+            is_parse_ok = 0;
             printf("\nSEMANTIC: ID NOT declared: %s", lexme);
             type = nfound;
         } else {
             type = get_ntype(lexme);
-            match(id);
         }
+        match(id);
     }
     else if(lookahead == number)
     {
@@ -305,19 +331,32 @@ static toktyp operand()
 int parser()
 {
     in("parser");
+
+
     lookahead = get_token();       // get the first token
-    program_header();               // call the first grammar rule
-    var_part();
-    stat_part();
 
-    if (!is_parse_ok) {
-        printf("\nSYNTAX:   Extra symbols after end of parse!\n          ");
-        printf("%s ", get_lexeme());
-        while (get_token() != '$') printf("%s ", get_lexeme());
+    // while (isspace(lookahead)) get_token();
 
+    if (lookahead == '$') {
+        is_parse_ok = 0;
+        printf("\nSYNTAX:   Input file is empty");
+    } else {
+        program_header();               // call the first grammar rule
+        var_part();
+        stat_part();
     }
 
+    if (lookahead != '$') {
+        printf("\nSYNTAX:   Extra symbols after end of parse!\n          ");
+        is_parse_ok = 0;
+        printf("%s ", get_lexeme());
+        while (get_token() != '$') printf("%s ", get_lexeme());
+    }
+
+    if (is_parse_ok) printf("\nPARSE SUCCESSFUL!") ;
+
     out("parser");
+    printf("\n________________________________________________________");
     p_symtab();
     // if parseok do get_tokena na dpirint it?
     

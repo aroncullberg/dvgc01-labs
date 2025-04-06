@@ -103,16 +103,17 @@ static void p_symrow(int ftref)
 
 void p_symtab()
 {
+    
     printf("\n________________________________________________________\n");
     printf(" THE SYMBOL TABLE\n");
     printf("________________________________________________________\n");
     printf("%11s%11s%11s%10s%10s\n", "NAME", "ROLE", "TYPE", "SIZE", "ADDR");
     printf("________________________________________________________\n");
-    for (int i = 0; i <= numrows; i++) {
+    for (int i = 0; i <= numrows && numrows != 0; i++) {
         p_symrow(i);
     }
     printf("________________________________________________________\n");
-    printf(" STATIC STORAGE REQUIRED is %2d BYTES\n", get_size(0));
+    printf(" STATIC STORAGE REQUIRED is %d BYTES\n", get_size(0));
     printf("________________________________________________________\n");
 }
 
@@ -121,6 +122,7 @@ void p_symtab()
 /**********************************************************************/
 void addp_name(char * fpname)
 {
+
     strcpy(name[0],fpname);
     set_role(numrows, program);
     set_type(numrows, program);
@@ -157,7 +159,7 @@ int find_name(char * fpname)
 void setv_type(toktyp ftype)
 {
     for (int row = numrows; row >= 0 ; row--) {
-        if (get_type(row) >= 268 && get_type(row) <= 276) break;
+        if (get_type(row) >= 258 && get_type(row) <= 276) break; // TODO: FIND BETTER SOLUTION
         set_type(row, ftype);
         switch (ftype)
         {
