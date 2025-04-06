@@ -74,8 +74,11 @@ static void match(int t)
     is_parse_ok=0;
     // printf("\n *** Unexpected Token: expected: %s found: %s (in match)",
     //           tok2lex(t), tok2lex(lookahead));
-    printf("\n SYNTAX: %s found: %s",
-        tok2lex(t), tok2lex(lookahead));
+    if (t == id) {
+        printf("\n SYNTAX:   ID expected found %s", get_lexeme());
+    } else {
+        printf("\n SYNTAX:   Symbol expected %s found %s", tok2lex(t), tok2lex(lookahead));
+        }
     }
 }
 
