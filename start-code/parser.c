@@ -192,15 +192,18 @@ static void stat()
 static void assign_stat()
 {
     in("assign_stat");
-    printf("\n<<<<<<<<<<<%s>>>>>>>>>>>\n\n", get_lexeme());
-    toktyp idtype = get_ntype(get_lexeme());
-    printf("\nid Type: %s - %d\n", tok2lex(idtype), idtype);
-    match(id); match(assign); 
-    toktyp exprtype = expr();
-    printf("\nexpr Type: %s - %d\n", tok2lex(exprtype), exprtype);
+    toktyp left_type;
+    toktyp right_type;
+    
+    left_type = get_ntype(get_lexeme());
+    //  printf("\nid Type: %s - %d\n", tok2lex(left_type), left_type);
+    match(id); 
+    match(assign); 
+    right_type = expr(); 
+    // printf("\nexpr Type: %s - %d\n", tok2lex(right_type), right_type);
 
-    if (idtype != exprtype) {
-        printf("SEMANTIC: Assign types: %s := %s", tok2lex(idtype), tok2lex(exprtype));
+    if (left_type != right_type) {
+        printf("\n SEMANTIC: Assign types: %s := %s", tok2lex(left_type), tok2lex(right_type));
     }
     out("assign_stat");
 }
@@ -213,9 +216,10 @@ static toktyp expr()
         {
             match('+');
             toktyp right = expr();
+            // printf("\n>>>>>>>>>>>>>>>>>>>>expr - %s(%d) | left: %s(%d) right: %s(%d)\n", tok2lex(get_otype('+', left, right)), get_otype('+', left, right), tok2lex(left), left, tok2lex(right), right);
             return get_otype('+', left, right);
         }
-    return nfound;
+    return left;
     out("expr");
 }
 
@@ -228,9 +232,10 @@ static toktyp term()
         {
             match('*'); 
             toktyp right = term();
-            return get_otype('*', left, term());
+            // printf("\n>>>>>>>>>>>>>>>>>>>>term - %s(%d) | left: %s(%d) right: %s(%d)\n", tok2lex(get_otype('+', left, right)), get_otype('+', left, right), tok2lex(left), left, tok2lex(right), right);
+            return get_otype('*', left, right);
         }
-    return nfound;
+    return left;
     out("term");
 }
 
@@ -244,6 +249,8 @@ static toktyp factor()
         }
     else
         type = operand();
+        
+    // printf("\n>>>>>>>>>>>>>>>>>>>>factor - %s(%d)\n", tok2lex(type), type);
     return type;
     out("factor");
 }
@@ -255,6 +262,7 @@ static toktyp operand()
     if (lookahead == id)
     {
         type = get_ntype(get_lexeme());
+        // printf("\n\nAttempting to match %s to %s\n\n", get_lexeme(), tok2lex(get_ntype(get_lexeme())));
         match(id);
     }
     else if(lookahead == number)
