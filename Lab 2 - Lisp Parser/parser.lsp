@@ -276,6 +276,11 @@
 
 ;; *** TO BE DONE ***
 
+(defun var-part (state)
+   (match state 'VAR)
+   (var-dec-list state)
+)
+
 ;;=====================================================================
 ; <program-header>
 ;;=====================================================================
@@ -286,8 +291,10 @@
    (match state 'id)
    (match state 'LP)
    (match state 'INPUT)
-   (match state ')
-   (match state ')
+   (match state 'COMMA)
+   (match state 'OUTPUT)
+   (match state 'RP)
+   (match state 'SCOLON)
 )
 
 ;;=====================================================================
