@@ -97,8 +97,12 @@
          ((string=   lexeme ")")        'RP)
          ((string=   lexeme ",")        'COMMA)
          ((string=   lexeme ";")        'SCOLON)
+         ((string=   lexeme ":")        'COLON)
          ((string=   lexeme "input")    'INPUT)
          ((string=   lexeme "output")   'OUTPUT)
+         ((string=   lexeme "integer")  'INTEGER)
+         ((string=   lexeme "real")     'REAL)
+         ((string=   lexeme "boolean")  'BOOLEAN)
 
 
 ;; etc,  *** TO BE DONE ***
@@ -170,8 +174,10 @@
 ;;=====================================================================
 
 (defun token  (state) ;; *** TO BE DONE ***
+   (first (pstate-lookahead state))
 )
 (defun lexeme (state) ;; *** TO BE DONE ***
+   (second (pstate-lookahead state))
 )
 
 ;;=====================================================================
@@ -265,6 +271,9 @@
 ;;=====================================================================
 
 ;; *** TO BE DONE ***
+(defun stat-part (state)
+   
+)
 
 ;;=====================================================================
 ; <var-part>     --> var <var-dec-list>
@@ -279,6 +288,31 @@
 (defun var-part (state)
    (match state 'VAR)
    (var-dec-list state)
+)
+
+(defun var-dec-list (state)
+   (var-dec state)
+   (if (eq (token state) 'ID) (var-dec-list state))
+)
+
+(defun var-dec (state)
+   (id-list)
+   (match state 'COLON)
+   (typedec state)
+)
+
+(defun id-list (state)
+ (match state 'ID)
+ (if (eq(token state) 'COMMA) (progn (match satte 'COMMA) (id-list state)) )
+)
+
+(defun typedec (state)
+   (cond
+      ((eq(token state) 'INTEGER)   (match state 'INTEGER))
+      ((eq(token state) 'REAL)      (match state 'REAL)) 
+      ((eq(token state) 'BOOLEAN)   (match state 'BOOLEAN))
+      (t                            (synerr2 state))
+   )
 )
 
 ;;=====================================================================
