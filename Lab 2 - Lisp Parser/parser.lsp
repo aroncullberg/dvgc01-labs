@@ -103,6 +103,10 @@
          ((string=   lexeme "integer")  'INTEGER)
          ((string=   lexeme "real")     'REAL)
          ((string=   lexeme "boolean")  'BOOLEAN)
+         ((string=   lexeme "begin")    'BEGIN)
+         ((string=   lexeme "end")      'END)
+         ((string=   lexeme "assign")   'ASSIGN)
+         ((string=   lexeme ".")        'DOT)
 
 
 ;; etc,  *** TO BE DONE ***
@@ -272,7 +276,14 @@
 
 ;; *** TO BE DONE ***
 (defun stat-part (state)
-   
+   (match state 'BEGIN)
+   (stat-list)
+   (match state 'END)
+   (match state 'DOT)
+)
+
+(defun stat-list (state)
+
 )
 
 ;;=====================================================================
