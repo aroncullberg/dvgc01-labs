@@ -12,7 +12,7 @@
 
 (defun ctos (c)        (make-string 1 :initial-element c))
 (defun str-con (str c) (concatenate 'string str (ctos c)))
-(defun whitespace (c)  (member c '(#\Space #\Tab #\Newline)))
+(defun whitespace (c)  (member c '(#\Space #\Tab #\Newline #\Return)))
 
 ;;=====================================================================
 ;; get-wspace   remove whitespace
@@ -105,13 +105,12 @@
          ((string=   lexeme "boolean")  'BOOLEAN)
          ((string=   lexeme "begin")    'BEGIN)
          ((string=   lexeme "end")      'END)
-         ((string=   lexeme "assign")   'ASSIGN)
+         ((string=   lexeme ":=")       'ASSIGN)
          ((string=   lexeme ".")        'DOT)
+         ((string=   lexeme "+")        'PLUS)
+         ((string=   lexeme "*")        'MULTIPLIKATION)
 
-
-;; etc,  *** TO BE DONE ***
-
-         ((string=   lexeme "")	        'EOF)
+         ((string=   lexeme "")	       'EOF)
          ((is-id     lexeme)            'ID)
          ((is-number lexeme)            'NUM)
          (t                             'UNKNOWN)
@@ -125,10 +124,13 @@
 
 (defun is-id (str)
 ;; *** TO BE DONE ***
+   (and (alpha-char-p (char str 0)) (every #'alphanumericp str))
+
 )
 
 (defun is-number (str)
 ;; *** TO BE DONE ***
+   (every #'digit-char-p str)
 )
 
 ;;=====================================================================
@@ -194,6 +196,7 @@
 
 (defun symtab-member (state id)
 ;; *** TO BE DONE ***
+
 )
 
 (defun symtab-display (state)
@@ -277,13 +280,69 @@
 ;; *** TO BE DONE ***
 (defun stat-part (state)
    (match state 'BEGIN)
-   (stat-list)
+   (stat-list state)
    (match state 'END)
    (match state 'DOT)
 )
 
 (defun stat-list (state)
+   (stat state)
+   (if (eq (token state) 'SCOLON) 
+      (progn
+         (match state 'SCOLON)
+         (stat-list state)
+      )
+   )
+)
 
+(defun stat (state)
+   (assign-stat state)
+)
+
+(defun assign-stat (state)
+   (match state 'ID)
+   (match state 'ASSIGN)
+   (expr state)
+)
+
+(defun expr (state)
+   (term state)
+   (if (eq(token state) 'PLUS)
+      (progn
+         (match state 'PLUS)
+         (expr state)
+      )
+   )
+)
+
+(defun term (state)
+   (factor state)
+   (if (eq(token state) 'MULTIPLIKATION)
+      (progn
+         (match state 'MULTIPLIKATION)
+         (term state)
+      )
+   )
+
+)
+
+(defun factor (state)
+   (if (eq(token state) 'LP)
+      (progn
+         (match state 'LP)
+         (expr state)
+         (match state 'RP)
+      )
+      (operand state)
+   )
+)
+
+(defun operand (state)
+   (cond
+      ((eq(token state) 'NUM) (match state 'NUM))
+      ((eq(token state) 'ID)  (match state 'ID) )
+      (t                      (synerr2 state)   )
+   )
 )
 
 ;;=====================================================================
@@ -307,14 +366,15 @@
 )
 
 (defun var-dec (state)
-   (id-list)
+   (id-list state)
    (match state 'COLON)
    (typedec state)
+   (match state 'SCOLON)
 )
 
 (defun id-list (state)
  (match state 'ID)
- (if (eq(token state) 'COMMA) (progn (match satte 'COMMA) (id-list state)) )
+ (if (eq(token state) 'COMMA) (progn (match state 'COMMA) (id-list state)) )
 )
 
 (defun typedec (state)
@@ -397,7 +457,7 @@
 ; THE PARSER - test a single file
 ;;=====================================================================
 
-;;(parse "testfiles/testok1.pas")
+(parse "testfiles/testok1.pas")
 
 ;;=====================================================================
 ; THE PARSER - end of code
