@@ -93,6 +93,13 @@
    (list (cond
          ((string=   lexeme "program")  'PROGRAM)
          ((string=   lexeme "var")      'VAR)
+         ((string=   lexeme "(")        'LP)
+         ((string=   lexeme ")")        'RP)
+         ((string=   lexeme ",")        'COMMA)
+         ((string=   lexeme ";")        'SCOLON)
+         ((string=   lexeme "input")    'INPUT)
+         ((string=   lexeme "output")   'OUTPUT)
+
 
 ;; etc,  *** TO BE DONE ***
 
@@ -274,6 +281,14 @@
 ;;=====================================================================
 
 ;; *** TO BE DONE ***
+(defun program-header (state)
+   (match state 'program)
+   (match state 'id)
+   (match state 'LP)
+   (match state 'INPUT)
+   (match state ')
+   (match state ')
+)
 
 ;;=====================================================================
 ; <program> --> <program-header><var-part><stat-part>
