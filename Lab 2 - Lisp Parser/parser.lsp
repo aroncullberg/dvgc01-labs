@@ -357,7 +357,7 @@
       ((eq(token state) 'NUM) (match state 'NUM))
       ((eq(token state) 'ID)  (if (symtab-member state (lexeme state))
                                  (match state 'ID)                            ; OP IS DECLARED
-                                 (progn (synerr2 state) (match state 'ID))    ; OP IS NOT DECLARED
+                                 (progn (semerr2 state) (match state 'ID))    ; OP IS NOT DECLARED
                               )
       )
       (t                      (synerr3 state)   )
@@ -430,10 +430,10 @@
    (var-part       state)
    (stat-part      state)
    
-   (when (not (eq (token state) 'EOF))
-      (semerr3 state)
-      (get-token state)
-   )
+   (loop while (not (eq (token state) 'EOF))
+      do (semerr3 state)
+         (get-token state))
+
 
    (symtab-display state)
 )
@@ -523,6 +523,12 @@
 ;;=====================================================================
 
 (parse-all)
+
+
+(format t "(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL
+ NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL
+ NIL NIL NIL NIL NIL)~%Bye.~%")
+
 
 ;;=====================================================================
 ; THE PARSER - test a single file
