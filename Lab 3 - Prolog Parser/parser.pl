@@ -8,6 +8,7 @@
 /* This is a slightly modified from of the Pascal Grammar for Lab 2 Prolog    */
 /******************************************************************************/
 
+/* program       --> prog_head, var_part, stat_part. */
 program       --> prog_head, var_part, stat_part.
 
 /******************************************************************************/
@@ -19,28 +20,63 @@ id            --> [a]|[b]|[c].
 /******************************************************************************/
 /* Var_part                                                                   */
 /******************************************************************************/
-# var_part             --> var_part_todo.
-# var_part_todo(_,_)   :-  write('var_part:  To Be Done'), nl.
+var_part        --> 
+        [var], var_dec_list, [';'].
 
-var_part        --> [var], var_dec_list, [';'].
+var_dec_list    --> 
+        var_dec ; 
+        var_dec, var_dec_list.
 
-var_dec_list    --> var_dec, rest_var_decs.
+var_dec         --> 
+        id_list, [':'], typ.
 
-rest_var_decs   --> [';'], var_dec, rest_var_decs | [].
+id_list         --> 
+        id;
+        id, [','], id_list.
 
-var_dec         --> id_list, [':'], type.
+typ             -->
+        [integer];
+        [real];
+        [boolean].
 
-id_list         --> id, rest_ids.
-
-rest_ids        --> [','], id, rest_ids | [].
-
-type            --> [integer] | [real] | [boolean].
 
 /******************************************************************************/
 /* Stat part                                                                  */
 /******************************************************************************/
-stat_part            -->  stat_part_todo.
-stat_part_todo(_,_)  :-   write('stat_part: To Be Done'), nl.
+
+stat_part --> [begin], stat_list, [end], ['.'].
+
+stat_list --> 
+        stat;
+        stat, [';'], stat_list.
+
+stat -->
+    assign_stat.
+
+assign_stat -->
+    id, [':='], expr.
+
+expr -->
+    term;
+    expr, addop, term.
+
+term -->
+    factor;
+    term, mulop, factor.
+
+factor -->
+    id;
+    number;
+    ['('], expr, [')'].
+
+addop --> ['+'].
+mulop --> ['*'].
+
+number --> [N], { number(N) }.
+
+compound_stat -->
+    [begin], stat_list, [end].
+
 
 /******************************************************************************/
 /* Testing the system: this may be done stepwise in Prolog                    */
@@ -118,7 +154,8 @@ testid_list3 :- id_list([a, ',', b, ',', c], []).
 testvar_dec :- var_dec([a, ':', integer], []).
 testvar_dec_list1 :- var_dec_list([a, ':', integer], []).
 testvar_dec_list2 :- var_dec_list([a, ':', integer, b, ':', real], []).
-testvar_part :- var_part([var, a, ':', integer], []).
+testvar_part :- var_part([var, a, ':', integer], []). 
+                            /* This should be false, according to grammar??? */
 
 /******************************************************************************/
 /* Define the above tests                                                     */
