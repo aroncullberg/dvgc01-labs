@@ -241,6 +241,13 @@
     (setf (pstate-status state) 'NOTOK)
 )
 
+; THIS IS OUR BECAUSE OTHERWISE WE CAN'T MATCH THE EXPECTED OUTPUT
+(defun semerr3 (state)
+    (format t "*** Semantic error: found ~8S expected EOF.~%"
+          (lexeme state))
+    (setf (pstate-status state) 'NOTOK)
+)
+
 ;;=====================================================================
 ; The return value from get-token is always a list. (token lexeme)
 ;;=====================================================================
@@ -302,6 +309,12 @@
 )
 
 (defun assign-stat (state)
+   (if (eq (token state) 'ID) 
+      (if (symtab-member state (lexeme state))
+         ()
+         (semerr2 state)
+      )
+   )
    (match state 'ID)
    (match state 'ASSIGN)
    (expr state)
@@ -416,6 +429,12 @@
    (program-header state)
    (var-part       state)
    (stat-part      state)
+   
+   (when (not (eq (token state) 'EOF))
+      (semerr3 state)
+      (get-token state)
+   )
+
    (symtab-display state)
 )
 

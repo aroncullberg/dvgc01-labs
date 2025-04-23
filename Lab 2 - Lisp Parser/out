@@ -383,6 +383,7 @@ Symbol: "integer"
 Symbol: ";" 
 Symbol: "begin" 
 Symbol: "A" 
+*** Semantic error: "A" not declared.
 Symbol: ":=" 
 Symbol: "B" 
 Symbol: "+" 
@@ -654,6 +655,8 @@ Symbol: "="
 *** Syntax error:   Expected OPERAND  found "=" 
 *** Syntax error:   Expected END      found "="      
 *** Syntax error:   Expected FSTOP    found "="      
+*** Semantic error: found "="      expected EOF.
+Symbol: "B" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
@@ -687,6 +690,8 @@ Symbol: ":"
 *** Syntax error:   Expected OPERAND  found ":" 
 *** Syntax error:   Expected END      found ":"      
 *** Syntax error:   Expected FSTOP    found ":"      
+*** Semantic error: found ":"      expected EOF.
+Symbol: "B" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
@@ -794,6 +799,8 @@ Symbol: "B"
 Symbol: "C" 
 *** Syntax error:   Expected END      found "C"      
 *** Syntax error:   Expected FSTOP    found "C"      
+*** Semantic error: found "C"      expected EOF.
+Symbol: "*" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
@@ -829,6 +836,8 @@ Symbol: "C"
 Symbol: "-" 
 *** Syntax error:   Expected END      found "-"      
 *** Syntax error:   Expected FSTOP    found "-"      
+*** Semantic error: found "-"      expected EOF.
+Symbol: "2" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
@@ -1360,6 +1369,8 @@ Symbol: "3"
 Symbol: "A" 
 *** Syntax error:   Expected END      found "A"      
 *** Syntax error:   Expected FSTOP    found "A"      
+*** Semantic error: found "A"      expected EOF.
+Symbol: ":=" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
@@ -1393,6 +1404,8 @@ Symbol: ":"
 *** Syntax error:   Expected OPERAND  found ":" 
 *** Syntax error:   Expected END      found ":"      
 *** Syntax error:   Expected FSTOP    found ":"      
+*** Semantic error: found ":"      expected EOF.
+Symbol: "=" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
@@ -1475,10 +1488,12 @@ Symbol: "2"
 Symbol: "end" 
 Symbol: "." 
 Symbol: "OOOOPS" 
+*** Semantic error: found "OOOOPS" expected EOF.
+Symbol: "!" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
-Parse Successful. 
+Parse Fail. 
 ------------------------------------------------------
 
 ------------------------------------------------------
