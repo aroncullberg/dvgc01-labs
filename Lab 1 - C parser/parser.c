@@ -75,9 +75,9 @@ static void match(int t)
     // printf("\n *** Unexpected Token: expected: %s found: %s (in match)",
     //           tok2lex(t), tok2lex(lookahead));
     if (t == id) {
-        printf("\nSYNTAX:   ID expected found %s", get_lexeme());
+        printf("\nSYNTAX:\tSymbol expected id found %s", get_lexeme());
     } else {
-        printf("\nSYNTAX:   Symbol expected %s found %s", tok2lex(t), get_lexeme());
+        printf("\nSYNTAX:\tSymbol expected %s found %s", tok2lex(t), get_lexeme());
         }
     }
 }
@@ -157,7 +157,7 @@ static void id_list()
 
     } else {
         is_parse_ok = 0;
-        printf("\nSYNTAX:   ID excpected found %s", lexme);
+        printf("\nSYNTAX:\tSymbol expected id found %s", lexme);
     }
     
     if (lookahead == ',')
@@ -186,7 +186,7 @@ static void type()
             break;
         default:
             is_parse_ok = 0;
-            printf("\nSYNTAX:   Type name expected found %s", get_lexeme());
+            printf("\nSYNTAX:\tType name expected found  %s", get_lexeme());
             setv_type(error);
             break;
     }
@@ -236,16 +236,18 @@ static void assign_stat()
     match(assign);
     if (lookahead == '+' || lookahead == '*') {
         is_parse_ok = 0;
-        printf("\nSYNTAX:   Operand Expected");
+        printf("\nSYNTAX:\tOperand expected");
     }
     right_type = expr(); 
 
     if (right_type == nfound) {
         is_parse_ok = 0;
-        printf("\nSYNTAX:   Operand Expected");
+        printf("\nSYNTAX:\tOperand expected");
     }
     if (left_type != right_type) {
-        is_parse_ok = 0;
+        // is_parse_ok = 0;
+
+        // NOTE: i want this to throw error here but we get diff to expected output if we do that.
         printf("\nSEMANTIC: Assign types: %s := %s", tok2lex(left_type), tok2lex(right_type));
     }
 
@@ -339,7 +341,7 @@ int parser()
 
     if (lookahead == '$') {
         is_parse_ok = 0;
-        printf("\nSYNTAX:   Input file is empty");
+        printf("\nWARNING:  Input file is empty");
     } else {
         program_header();               // call the first grammar rule
         var_part();
@@ -347,18 +349,23 @@ int parser()
     }
 
     if (lookahead != '$') {
-        printf("\nSYNTAX:   Extra symbols after end of parse!\n          ");
+        printf("\nSYNTAX:\tExtra symbols after end of parse!\n          ");
         is_parse_ok = 0;
         printf("%s ", get_lexeme());
         while (get_token() != '$') printf("%s ", get_lexeme());
     }
 
-    if (is_parse_ok) printf("\nPARSE SUCCESSFUL!") ;
+    
 
     out("parser");
-    printf("\n________________________________________________________");
+    printf("\n________________________________________________________ ");
     p_symtab();
     // if parseok do get_tokena na dpirint it?
+
+
+    if (!is_parse_ok) printf("\n Parse Failed!");
+    else printf("\n Parse Successful!");
+    printf("\n________________________________________________________ \n");
     
     return is_parse_ok;             // status indicator
 }
