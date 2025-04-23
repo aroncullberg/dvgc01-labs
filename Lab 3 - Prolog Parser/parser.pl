@@ -21,14 +21,14 @@ id            --> [a]|[b]|[c].
 /* Var_part                                                                   */
 /******************************************************************************/
 var_part        --> 
-        [var], var_dec_list, [';'].
+        [var], var_dec_list.
 
 var_dec_list    --> 
         var_dec ; 
         var_dec, var_dec_list.
 
 var_dec         --> 
-        id_list, [':'], typ.
+        id_list, [':'], typ, [';'].
 
 id_list         --> 
         id;
@@ -152,11 +152,40 @@ testid3 :- id([c], []).
 testid_list1 :- id_list([a], []).
 testid_list2 :- id_list([a, ',', b], []).
 testid_list3 :- id_list([a, ',', b, ',', c], []).
-testvar_dec :- var_dec([a, ':', integer], []).
-testvar_dec_list1 :- var_dec_list([a, ':', integer], []).
-testvar_dec_list2 :- var_dec_list([a, ':', integer, b, ':', real], []).
-testvar_part :- var_part([var, a, ':', integer], []). 
-                            /* This should be false, according to grammar??? */
+testvar_dec :- var_dec([a, ':', integer, ';'], []).
+                                    /* added a ';' to test so it passes and matches above program*/
+testvar_dec_list1 :- var_dec_list([a, ':', integer, ';'], []).
+                                    /* added a ';' to test so it passes and matches above program*/
+testvar_dec_list2 :- var_dec_list([a, ':', integer, ';', b, ':', real, ';'], []).
+                                    /* added a ';' to test so it passes and matches above program*/
+testvar_part :- var_part([var, a, ':', integer, ';'], []). 
+                                    /* added a ';' to test so it passes and matches above program*/
+                                    /* This should be false, according to grammar??? */
+
+
+testop1 :- op(['+'], []).
+testop2 :- op(['-'], []).
+testop3 :- op(['*'], []).
+testop4 :- op(['/'], []).
+testaddop1 :- addop(['+'], []).
+testaddop2 :- addop(['-'], []).
+testmulop1 :- mulop(['*'], []).
+testmulop2 :- mulop(['/'], []).
+testfactor1 :- factor([a], []).
+testfactor2 :- factor(['(', a, ')'], []).
+testterm1 :- term([a], []).
+testterm2 :- term([a, '*', a], []).
+testexpr1 :- expr([a], []).
+testexpr2 :- expr([a, '*', a], []).
+testassign_stat1 :- assign_stat([a, assign, b], []).
+testassign_stat2 :- assign_stat([a, assign, b, '*', c], []).
+teststat1 :- stat([a, assign, b], []).
+teststat2 :- stat([a, assign, b, '*', c], []).
+teststat_list1 :- stat_list([a, assign, b], []).
+teststat_list2 :- stat_list([a, assign, b, '*', c], []).
+teststat_list3 :- stat_list([a, assign, b, ';', a, assign, c], []).
+teststat_list4 :- stat_list([a, assign, b, '*', c, ';', a, assign, b, '*', c], []).
+teststat_list5 :- stat_part([begin, a, assign, b, '*', c, end, '.'], []).
 
 /******************************************************************************/
 /* Define the above tests                                                     */
