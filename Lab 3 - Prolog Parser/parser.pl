@@ -19,8 +19,22 @@ id            --> [a]|[b]|[c].
 /******************************************************************************/
 /* Var_part                                                                   */
 /******************************************************************************/
-var_part             --> var_part_todo.
-var_part_todo(_,_)   :-  write('var_part:  To Be Done'), nl.
+# var_part             --> var_part_todo.
+# var_part_todo(_,_)   :-  write('var_part:  To Be Done'), nl.
+
+var_part        --> [var], var_dec_list, [';'].
+
+var_dec_list    --> var_dec, rest_var_decs.
+
+rest_var_decs   --> [';'], var_dec, rest_var_decs | [].
+
+var_dec         --> id_list, [':'], type.
+
+id_list         --> id, rest_ids.
+
+rest_ids        --> [','], id, rest_ids | [].
+
+type            --> [integer] | [real] | [boolean].
 
 /******************************************************************************/
 /* Stat part                                                                  */
@@ -92,12 +106,27 @@ stat_part_todo(_,_)  :-   write('stat_part: To Be Done'), nl.
 /*          end, '.'], []).                                                   */
 /******************************************************************************/
 
+testtyp1 :- typ([integer], []).
+testtyp2 :- typ([real], []).
+testtyp3 :- typ([boolean], []).
+testid1 :- id([a], []).
+testid2 :- id([b], []).
+testid3 :- id([c], []).
+testid_list1 :- id_list([a], []).
+testid_list2 :- id_list([a, ',', b], []).
+testid_list3 :- id_list([a, ',', b, ',', c], []).
+testvar_dec :- var_dec([a, ':', integer], []).
+testvar_dec_list1 :- var_dec_list([a, ':', integer], []).
+testvar_dec_list2 :- var_dec_list([a, ':', integer, b, ':', real], []).
+testvar_part :- var_part([var, a, ':', integer], []).
+
 /******************************************************************************/
 /* Define the above tests                                                     */
 /******************************************************************************/
 
 testph :- prog_head([program, c, '(', input, ',', output, ')', ';'], []).
 testpr :-   program([program, c, '(', input, ',', output, ')', ';'], []).
+
 
 /******************************************************************************/
 /* End of program                                                             */
