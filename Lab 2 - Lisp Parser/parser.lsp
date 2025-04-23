@@ -106,7 +106,7 @@
          ((string=   lexeme "begin")    'BEGIN)
          ((string=   lexeme "end")      'END)
          ((string=   lexeme ":=")       'ASSIGN)
-         ((string=   lexeme ".")        'DOT)
+         ((string=   lexeme ".")        'FSTOP)
          ((string=   lexeme "+")        'PLUS)
          ((string=   lexeme "*")        'MULTIPLIKATION)
 
@@ -198,7 +198,7 @@
 )
 
 (defun symtab-member (state id)
-   (member id (pstate-symtab state):test #'equal)
+   (member id (pstate-symtab state):test #'string-equal)
 )
 
 (defun symtab-display (state)
@@ -284,7 +284,7 @@
    (match state 'BEGIN)
    (stat-list state)
    (match state 'END)
-   (match state 'DOT)
+   (match state 'FSTOP)
 )
 
 (defun stat-list (state)
@@ -342,8 +342,12 @@
 (defun operand (state)
    (cond
       ((eq(token state) 'NUM) (match state 'NUM))
-      ((eq(token state) 'ID)  (match state 'ID) )
-      (t                      (synerr2 state)   )
+      ((eq(token state) 'ID)  (if (symtab-member state (lexeme state))
+                                 (match state 'ID)                            ; OP IS DECLARED
+                                 (progn (synerr2 state) (match state 'ID))    ; OP IS NOT DECLARED
+                              )
+      )
+      (t                      (synerr3 state)   )
    )
 )
 
@@ -375,7 +379,7 @@
 )
 
 (defun id-list (state)
- (symtab-add state (lexeme state))
+   (if (eq(token state) 'ID) (symtab-add state (lexeme state)))
  (match state 'ID)
  (if (eq(token state) 'COMMA) (progn (match state 'COMMA) (id-list state)) )
 )
@@ -446,7 +450,52 @@
 
 (defun parse-all ()
 
-;; *** TO BE DONE ***
+(parse "testfiles/testa.pas")
+(parse "testfiles/testb.pas")
+(parse "testfiles/testc.pas")
+(parse "testfiles/testd.pas")
+(parse "testfiles/teste.pas")
+(parse "testfiles/testf.pas")
+(parse "testfiles/testg.pas")
+(parse "testfiles/testh.pas")
+(parse "testfiles/testi.pas")
+(parse "testfiles/testj.pas")
+(parse "testfiles/testk.pas")
+(parse "testfiles/testl.pas")
+(parse "testfiles/testm.pas")
+(parse "testfiles/testn.pas")
+(parse "testfiles/testo.pas")
+(parse "testfiles/testp.pas")
+(parse "testfiles/testq.pas")
+(parse "testfiles/testr.pas")
+(parse "testfiles/tests.pas")
+(parse "testfiles/testt.pas")
+(parse "testfiles/testu.pas")
+(parse "testfiles/testv.pas")
+(parse "testfiles/testw.pas")
+(parse "testfiles/testx.pas")
+(parse "testfiles/testy.pas")
+(parse "testfiles/testz.pas")
+
+(parse "testfiles/testok1.pas")
+(parse "testfiles/testok2.pas")
+(parse "testfiles/testok3.pas")
+(parse "testfiles/testok4.pas")
+(parse "testfiles/testok5.pas")
+(parse "testfiles/testok6.pas")
+(parse "testfiles/testok7.pas")
+
+(parse "testfiles/fun1.pas")
+(parse "testfiles/fun2.pas")
+(parse "testfiles/fun3.pas")
+(parse "testfiles/fun4.pas")
+(parse "testfiles/fun5.pas")
+
+(parse "testfiles/sem1.pas")
+(parse "testfiles/sem2.pas")
+(parse "testfiles/sem3.pas")
+(parse "testfiles/sem4.pas")
+(parse "testfiles/sem5.pas")
 
 )
 
@@ -454,13 +503,13 @@
 ; THE PARSER - test all files
 ;;=====================================================================
 
-;; (parse-all)
+(parse-all)
 
 ;;=====================================================================
 ; THE PARSER - test a single file
 ;;=====================================================================
 
-(parse "testfiles/testok1.pas")
+; (parse "testfiles/testa.pas")
 
 ;;=====================================================================
 ; THE PARSER - end of code
