@@ -69,8 +69,9 @@ factor -->
     number;
     ['('], expr, [')'].
 
-addop --> ['+'].
-mulop --> ['*'].
+addop --> ['+']; ['-'].
+mulop --> ['*']; ['/'].
+
 
 number --> [N], { number(N) }.
 
