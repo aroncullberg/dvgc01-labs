@@ -191,12 +191,14 @@
 ;;=====================================================================
 
 (defun symtab-add (state id)
-;; *** TO BE DONE ***
+   (if (symtab-member state id)
+      (semerr1 state)                                                               ; IF TRUE
+      (setf (pstate-symtab state) (append (pstate-symtab state) (cons id nil)))    ; IF NOT TRUE A.K.A FALSE (ELSE)
+   )
 )
 
 (defun symtab-member (state id)
-;; *** TO BE DONE ***
-
+   (member id (pstate-symtab state):test #'equal)
 )
 
 (defun symtab-display (state)
@@ -373,6 +375,7 @@
 )
 
 (defun id-list (state)
+ (symtab-add state (lexeme state))
  (match state 'ID)
  (if (eq(token state) 'COMMA) (progn (match state 'COMMA) (id-list state)) )
 )
