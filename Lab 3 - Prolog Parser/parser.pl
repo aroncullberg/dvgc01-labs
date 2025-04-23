@@ -58,16 +58,24 @@ assign_stat -->
 
 expr -->
     term;
-    expr, addop, term.
+    expr, op, term.
 
 term -->
     factor;
-    term, mulop, factor.
+    term, op, factor.
 
 factor -->
+    ['('], expr, [')'];
+    operand.
+
+operand -->
     id;
-    number;
-    ['('], expr, [')'].
+    number.
+
+op --> 
+    addop;
+    mulop.
+
 
 addop --> ['+']; ['-'].
 mulop --> ['*']; ['/'].
