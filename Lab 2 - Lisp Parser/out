@@ -657,6 +657,20 @@ Symbol: "="
 *** Syntax error:   Expected FSTOP    found "="      
 *** Semantic error: found "="      expected EOF.
 Symbol: "B" 
+*** Semantic error: found "B"      expected EOF.
+Symbol: "+" 
+*** Semantic error: found "+"      expected EOF.
+Symbol: "C" 
+*** Semantic error: found "C"      expected EOF.
+Symbol: "*" 
+*** Semantic error: found "*"      expected EOF.
+Symbol: "2" 
+*** Semantic error: found "2"      expected EOF.
+Symbol: "end" 
+*** Semantic error: found "end"    expected EOF.
+Symbol: "." 
+*** Semantic error: found "."      expected EOF.
+Symbol: "" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
@@ -692,6 +706,20 @@ Symbol: ":"
 *** Syntax error:   Expected FSTOP    found ":"      
 *** Semantic error: found ":"      expected EOF.
 Symbol: "B" 
+*** Semantic error: found "B"      expected EOF.
+Symbol: "+" 
+*** Semantic error: found "+"      expected EOF.
+Symbol: "C" 
+*** Semantic error: found "C"      expected EOF.
+Symbol: "*" 
+*** Semantic error: found "*"      expected EOF.
+Symbol: "2" 
+*** Semantic error: found "2"      expected EOF.
+Symbol: "end" 
+*** Semantic error: found "end"    expected EOF.
+Symbol: "." 
+*** Semantic error: found "."      expected EOF.
+Symbol: "" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
@@ -801,6 +829,14 @@ Symbol: "C"
 *** Syntax error:   Expected FSTOP    found "C"      
 *** Semantic error: found "C"      expected EOF.
 Symbol: "*" 
+*** Semantic error: found "*"      expected EOF.
+Symbol: "2" 
+*** Semantic error: found "2"      expected EOF.
+Symbol: "end" 
+*** Semantic error: found "end"    expected EOF.
+Symbol: "." 
+*** Semantic error: found "."      expected EOF.
+Symbol: "" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
@@ -838,6 +874,12 @@ Symbol: "-"
 *** Syntax error:   Expected FSTOP    found "-"      
 *** Semantic error: found "-"      expected EOF.
 Symbol: "2" 
+*** Semantic error: found "2"      expected EOF.
+Symbol: "end" 
+*** Semantic error: found "end"    expected EOF.
+Symbol: "." 
+*** Semantic error: found "."      expected EOF.
+Symbol: "" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
@@ -985,9 +1027,6 @@ Symbol: ":="
 Symbol: "B" 
 Symbol: "+" 
 Symbol: "C" 
-Symbol: "+" 
-Symbol: "D" 
-*** Syntax error:   Expected TYPE     found "D" 
 Symbol: "*" 
 Symbol: "2" 
 Symbol: "end" 
@@ -996,7 +1035,7 @@ Symbol: ""
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
-Parse Fail. 
+Parse Successful. 
 ------------------------------------------------------
 
 ------------------------------------------------------
@@ -1330,7 +1369,7 @@ Symbol: ":="
 Symbol: "B" 
 Symbol: "+" 
 Symbol: "C" 
-*** Syntax error:   Expected TYPE     found "C" 
+*** Semantic error: "C" not declared.
 Symbol: "*" 
 Symbol: "2" 
 Symbol: "end" 
@@ -1371,6 +1410,22 @@ Symbol: "A"
 *** Syntax error:   Expected FSTOP    found "A"      
 *** Semantic error: found "A"      expected EOF.
 Symbol: ":=" 
+*** Semantic error: found ":="     expected EOF.
+Symbol: "B" 
+*** Semantic error: found "B"      expected EOF.
+Symbol: "+" 
+*** Semantic error: found "+"      expected EOF.
+Symbol: "C" 
+*** Semantic error: found "C"      expected EOF.
+Symbol: "*" 
+*** Semantic error: found "*"      expected EOF.
+Symbol: "2" 
+*** Semantic error: found "2"      expected EOF.
+Symbol: "end" 
+*** Semantic error: found "end"    expected EOF.
+Symbol: "." 
+*** Semantic error: found "."      expected EOF.
+Symbol: "" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
@@ -1406,6 +1461,22 @@ Symbol: ":"
 *** Syntax error:   Expected FSTOP    found ":"      
 *** Semantic error: found ":"      expected EOF.
 Symbol: "=" 
+*** Semantic error: found "="      expected EOF.
+Symbol: "B" 
+*** Semantic error: found "B"      expected EOF.
+Symbol: "+" 
+*** Semantic error: found "+"      expected EOF.
+Symbol: "C" 
+*** Semantic error: found "C"      expected EOF.
+Symbol: "*" 
+*** Semantic error: found "*"      expected EOF.
+Symbol: "2" 
+*** Semantic error: found "2"      expected EOF.
+Symbol: "end" 
+*** Semantic error: found "end"    expected EOF.
+Symbol: "." 
+*** Semantic error: found "."      expected EOF.
+Symbol: "" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
@@ -1490,6 +1561,12 @@ Symbol: "."
 Symbol: "OOOOPS" 
 *** Semantic error: found "OOOOPS" expected EOF.
 Symbol: "!" 
+*** Semantic error: found "!"      expected EOF.
+Symbol: "!" 
+*** Semantic error: found "!"      expected EOF.
+Symbol: "!" 
+*** Semantic error: found "!"      expected EOF.
+Symbol: "" 
 ------------------------------------------------------
 Symbol Table is: ("A" "B" "C") 
 ------------------------------------------------------
@@ -1520,7 +1597,7 @@ Symbol: "begin"
 Symbol: "A" 
 Symbol: ":=" 
 Symbol: "D" 
-*** Syntax error:   Expected TYPE     found "D" 
+*** Semantic error: "D" not declared.
 Symbol: "+" 
 Symbol: "C" 
 Symbol: "*" 
@@ -1561,7 +1638,7 @@ Symbol: ":="
 Symbol: "B" 
 Symbol: "+" 
 Symbol: "C" 
-*** Syntax error:   Expected TYPE     found "C" 
+*** Semantic error: "C" not declared.
 Symbol: "*" 
 Symbol: "2" 
 Symbol: "end" 
@@ -1703,3 +1780,7 @@ Symbol Table is: ("A" "B" "C" "D" "E" "F")
 ------------------------------------------------------
 Parse Successful. 
 ------------------------------------------------------
+(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL
+ NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL
+ NIL NIL NIL NIL NIL)
+Bye.
