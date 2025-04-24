@@ -20,24 +20,19 @@ id            --> [a]|[b]|[c].
 /******************************************************************************/
 /* Var_part                                                                   */
 /******************************************************************************/
-var_part        --> 
-        [var], var_dec_list.
+var_part        --> [var], var_dec_list.
 
-var_dec_list    --> 
-        var_dec ; 
-        var_dec, var_dec_list.
+var_dec_list    --> var_dec. 
+var_dec_list    --> var_dec, var_dec_list.
 
-var_dec         --> 
-        id_list, [':'], typ, [';'].
+var_dec         --> id_list, [':'], typ, [';'].
 
-id_list         --> 
-        id;
-        id, [','], id_list.
+id_list         --> id.
+id_list         --> id, [','], id_list.
 
-typ             -->
-        [integer];
-        [real];
-        [boolean].
+typ             -->[integer].
+typ             -->[real].
+typ             -->[boolean].
 
 
 /******************************************************************************/
@@ -46,27 +41,21 @@ typ             -->
 
 stat_part --> [begin], stat_list, [end], ['.'].
 
-stat_list --> 
-        stat;
-        stat, [';'], stat_list.
+stat_list --> stat.
+stat_list --> stat, [';'], stat_list.
+        
+stat --> assign_stat.
 
-stat -->
-    assign_stat.
+assign_stat --> id, [assign], expr.
 
-assign_stat -->
-    id, [':='], expr.
+expr --> term.
+expr --> op, expr.
 
-expr -->
-    term;
-    expr, op, term.
+term --> factor.
+term --> op, term.
 
-term -->
-    factor;
-    term, op, factor.
-
-factor -->
-    ['('], expr, [')'];
-    operand.
+factor --> ['('], expr, [')'].
+factor --> operand.
 
 operand -->
     id;
@@ -76,16 +65,10 @@ op -->
     addop;
     mulop.
 
-
 addop --> ['+']; ['-'].
 mulop --> ['*']; ['/'].
 
-
 number --> [N], { number(N) }.
-
-compound_stat -->
-    [begin], stat_list, [end].
-
 
 /******************************************************************************/
 /* Testing the system: this may be done stepwise in Prolog                    */
