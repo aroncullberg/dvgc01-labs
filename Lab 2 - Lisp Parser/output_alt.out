@@ -1,6 +1,6 @@
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testa.pas" 
+--- Parsing program: "testfiles/testa.pas" 
 ------------------------------------------------------
 Symbol: "" 
 *** Syntax error:   Expected PROGRAM  found ""       
@@ -29,7 +29,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testb.pas" 
+--- Parsing program: "testfiles/testb.pas" 
 ------------------------------------------------------
 Symbol: "testb" 
 *** Syntax error:   Expected PROGRAM  found "testb"  
@@ -66,7 +66,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testc.pas" 
+--- Parsing program: "testfiles/testc.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "(" 
@@ -103,7 +103,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testd.pas" 
+--- Parsing program: "testfiles/testd.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testd" 
@@ -140,7 +140,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/teste.pas" 
+--- Parsing program: "testfiles/teste.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "teste" 
@@ -177,7 +177,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testf.pas" 
+--- Parsing program: "testfiles/testf.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testf" 
@@ -214,7 +214,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testg.pas" 
+--- Parsing program: "testfiles/testg.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testg" 
@@ -251,7 +251,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testh.pas" 
+--- Parsing program: "testfiles/testh.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testh" 
@@ -288,7 +288,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testi.pas" 
+--- Parsing program: "testfiles/testi.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testi" 
@@ -325,7 +325,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testj.pas" 
+--- Parsing program: "testfiles/testj.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testj" 
@@ -362,7 +362,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testk.pas" 
+--- Parsing program: "testfiles/testk.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testk" 
@@ -400,7 +400,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testl.pas" 
+--- Parsing program: "testfiles/testl.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testl" 
@@ -439,7 +439,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testm.pas" 
+--- Parsing program: "testfiles/testm.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testm" 
@@ -476,7 +476,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testn.pas" 
+--- Parsing program: "testfiles/testn.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testn" 
@@ -513,7 +513,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testo.pas" 
+--- Parsing program: "testfiles/testo.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testo" 
@@ -550,7 +550,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testp.pas" 
+--- Parsing program: "testfiles/testp.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testp" 
@@ -592,7 +592,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testq.pas" 
+--- Parsing program: "testfiles/testq.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testq" 
@@ -629,7 +629,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testr.pas" 
+--- Parsing program: "testfiles/testr.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testr" 
@@ -678,7 +678,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/tests.pas" 
+--- Parsing program: "testfiles/tests.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "tests" 
@@ -727,7 +727,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testt.pas" 
+--- Parsing program: "testfiles/testt.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testt" 
@@ -764,7 +764,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testu.pas" 
+--- Parsing program: "testfiles/testu.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testu" 
@@ -801,7 +801,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testv.pas" 
+--- Parsing program: "testfiles/testv.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testv" 
@@ -844,7 +844,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testw.pas" 
+--- Parsing program: "testfiles/testw.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testw" 
@@ -887,7 +887,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testx.pas" 
+--- Parsing program: "testfiles/testx.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testx" 
@@ -928,7 +928,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testy.pas" 
+--- Parsing program: "testfiles/testy.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testy" 
@@ -965,7 +965,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testz.pas" 
+--- Parsing program: "testfiles/testz.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testz" 
@@ -1002,7 +1002,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testok1.pas" 
+--- Parsing program: "testfiles/testok1.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testok1" 
@@ -1039,7 +1039,7 @@ Parse Successful.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testok2.pas" 
+--- Parsing program: "testfiles/testok2.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testok2" 
@@ -1108,7 +1108,7 @@ Parse Successful.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testok3.pas" 
+--- Parsing program: "testfiles/testok3.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testok3" 
@@ -1161,7 +1161,7 @@ Parse Successful.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testok4.pas" 
+--- Parsing program: "testfiles/testok4.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testok4" 
@@ -1206,7 +1206,7 @@ Parse Successful.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testok5.pas" 
+--- Parsing program: "testfiles/testok5.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testok5" 
@@ -1263,7 +1263,7 @@ Parse Successful.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testok6.pas" 
+--- Parsing program: "testfiles/testok6.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testok6" 
@@ -1302,7 +1302,7 @@ Parse Successful.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/testok7.pas" 
+--- Parsing program: "testfiles/testok7.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "testok7" 
@@ -1343,7 +1343,7 @@ Parse Successful.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/fun1.pas" 
+--- Parsing program: "testfiles/fun1.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "fun1" 
@@ -1382,7 +1382,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/fun2.pas" 
+--- Parsing program: "testfiles/fun2.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "fun2" 
@@ -1433,7 +1433,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/fun3.pas" 
+--- Parsing program: "testfiles/fun3.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "fun3" 
@@ -1484,7 +1484,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/fun4.pas" 
+--- Parsing program: "testfiles/fun4.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "fun4" 
@@ -1529,7 +1529,7 @@ Parse Successful.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/fun5.pas" 
+--- Parsing program: "testfiles/fun5.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "fun5" 
@@ -1574,7 +1574,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/sem1.pas" 
+--- Parsing program: "testfiles/sem1.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "sem1" 
@@ -1612,7 +1612,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/sem2.pas" 
+--- Parsing program: "testfiles/sem2.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "sem2" 
@@ -1651,7 +1651,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/sem3.pas" 
+--- Parsing program: "testfiles/sem3.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "sem3" 
@@ -1692,7 +1692,7 @@ Parse Fail.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/sem4.pas" 
+--- Parsing program: "testfiles/sem4.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "sem4" 
@@ -1737,7 +1737,7 @@ Parse Successful.
 ------------------------------------------------------
 
 ------------------------------------------------------
---- Parsing program: #P"/mnt/d/university/DVGC01 - Programspråk/lab123/Lab 2 - Lisp Parser/testfiles/sem5.pas" 
+--- Parsing program: "testfiles/sem5.pas" 
 ------------------------------------------------------
 Symbol: "program" 
 Symbol: "sem5" 
