@@ -430,12 +430,22 @@
    (var-part       state)
    (stat-part      state)
    
-   (loop while (not (eq (token state) 'EOF))
-      do (semerr3 state)
-         (get-token state))
+   (eat state)
 
 
    (symtab-display state)
+)
+
+(defun eat (state)
+
+   (if (not (eq (token state) 'EOF))
+      (progn
+         (semerr3 state)
+         (get-token state)
+         (eat state)
+      )
+      
+   )
 )
 
 ;;=====================================================================
