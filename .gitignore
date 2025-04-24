@@ -1,11 +1,8 @@
-*.out
 Lab 1 - C parser/parser
-*.out
 /Lab 1 - C parser/TestSuite/*.*
 /Lab 1 - C parser/TestSuite/*
 /Lab 1 - C parser/TestSuite
 *.zip
-*.out
 Lab 1 - C parser/tlexer
 Lab 1 - C parser/top
 Lab 1 - C parser/tsym
