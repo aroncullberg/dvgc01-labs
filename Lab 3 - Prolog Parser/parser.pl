@@ -48,22 +48,17 @@ stat --> assign_stat.
 
 assign_stat --> id, [assign], expr.
 
-expr --> term.
-expr --> op, expr.
+expr --> term   | term, op, expr.
 
-term --> factor.
-term --> op, term.
+term --> factor | factor, op, term.
 
-factor --> ['('], expr, [')'].
-factor --> operand.
+factor --> ['('], expr, [')'] | operand.
 
 operand -->
     id;
     number.
 
-op --> 
-    addop;
-    mulop.
+op --> addop | mulop.
 
 addop --> ['+']; ['-'].
 mulop --> ['*']; ['/'].

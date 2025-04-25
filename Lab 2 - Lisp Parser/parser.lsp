@@ -1,4 +1,9 @@
 ;;=====================================================================
+;; Aron Cullberg    -   aroncull100                                   
+;; Viktor Hajto     -   vikthajt100                                   
+;;=====================================================================
+
+;;=====================================================================
 ;; LISP READER & LEXER - new version 160514
 ;;=====================================================================
 
@@ -123,13 +128,10 @@
 ;;=====================================================================
 
 (defun is-id (str)
-;; *** TO BE DONE ***
    (and (alpha-char-p (char str 0)) (every #'alphanumericp str))
-
 )
 
 (defun is-number (str)
-;; *** TO BE DONE ***
    (every #'digit-char-p str)
 )
 
@@ -478,75 +480,24 @@
 ;;=====================================================================
 
 (defun parse-all ()
-
-(mapcar #'parse 
-   (append
-      (directory "testfiles/test?.pas")
-      (directory "testfiles/testok?.pas")
-      (directory "testfiles/fun?.pas")
-      (directory "testfiles/sem?.pas")
+   (mapcar
+      (lambda (p)
+         (parse(concatenate 'string "testfiles/" (file-namestring p)))
+      )
+      (append
+         (directory "testfiles/test?.pas")
+         (directory "testfiles/testok?.pas")
+         (directory "testfiles/fun?.pas")
+         (directory "testfiles/sem?.pas")
+      )
    )
-)
-
-; (parse "testfiles/testa.pas")
-; (parse "testfiles/testb.pas")
-; (parse "testfiles/testc.pas")
-; (parse "testfiles/testd.pas")
-; (parse "testfiles/teste.pas")
-; (parse "testfiles/testf.pas")
-; (parse "testfiles/testg.pas")
-; (parse "testfiles/testh.pas")
-; (parse "testfiles/testi.pas")
-; (parse "testfiles/testj.pas")
-; (parse "testfiles/testk.pas")
-; (parse "testfiles/testl.pas")
-; (parse "testfiles/testm.pas")
-; (parse "testfiles/testn.pas")
-; (parse "testfiles/testo.pas")
-; (parse "testfiles/testp.pas")
-; (parse "testfiles/testq.pas")
-; (parse "testfiles/testr.pas")
-; (parse "testfiles/tests.pas")
-; (parse "testfiles/testt.pas")
-; (parse "testfiles/testu.pas")
-; (parse "testfiles/testv.pas")
-; (parse "testfiles/testw.pas")
-; (parse "testfiles/testx.pas")
-; (parse "testfiles/testy.pas")
-; (parse "testfiles/testz.pas")
-
-; (parse "testfiles/testok1.pas")
-; (parse "testfiles/testok2.pas")
-; (parse "testfiles/testok3.pas")
-; (parse "testfiles/testok4.pas")
-; (parse "testfiles/testok5.pas")
-; (parse "testfiles/testok6.pas")
-; (parse "testfiles/testok7.pas")
-
-; (parse "testfiles/fun1.pas")
-; (parse "testfiles/fun2.pas")
-; (parse "testfiles/fun3.pas")
-; (parse "testfiles/fun4.pas")
-; (parse "testfiles/fun5.pas")
-
-; (parse "testfiles/sem1.pas")
-; (parse "testfiles/sem2.pas")
-; (parse "testfiles/sem3.pas")
-; (parse "testfiles/sem4.pas")
-; (parse "testfiles/sem5.pas")
-
 )
 
 ;;=====================================================================
 ; THE PARSER - test all files
 ;;=====================================================================
 
-(parse-all)
-
-
-(format t "(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL
- NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL
- NIL NIL NIL NIL NIL)~%Bye.~%")
+(format t "~S~%" (parse-all))
 
 
 ;;=====================================================================
