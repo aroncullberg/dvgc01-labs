@@ -1,3 +1,5 @@
+:- ensure_loaded('parser.pl').
+
 /******************************************************************************/
 /* From Programming in Prolog (4th Ed.) Clocksin & Mellish, Springer (1994)   */
 /* Chapter 5, pp 101-103 (DFR (140421) modified for input from a file)        */
@@ -79,7 +81,12 @@ ttrace  :- trace, testread(['cmreader.txt']), notrace, nodebug.
 
 testread([]).
 testread([H|T]) :- nl, write('Testing C&M Reader, input file: '), write(H), nl,
-                   read_in(H,L), write(L), nl,
+                   read_in(H,Tokens), 
+                   write('Tokenasdfasdfs = '), write(Tokens), nl,
+                   (   phrase(program, Tokens, [])
+                     ->  write('=> Parse OK!'), nl
+                     ;   write('=> Parse Fail!'), nl
+                   ),
                    nl, write(' end of C&M Reader test'), nl,
                    testread(T).
 

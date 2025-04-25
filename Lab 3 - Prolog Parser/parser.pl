@@ -46,7 +46,7 @@ stat_list --> stat, [';'], stat_list.
         
 stat --> assign_stat.
 
-assign_stat --> id, [assign], expr.
+assign_stat --> id, [':'], ['='], expr.
 
 expr --> term   | term, op, expr.
 
@@ -178,8 +178,7 @@ teststat_list5 :- stat_part([begin, a, assign, b, '*', c, end, '.'], []).
 /******************************************************************************/
 
 testph :- prog_head([program, c, '(', input, ',', output, ')', ';'], []).
-testpr :-   program([program, c, '(', input, ',', output, ')', ';'], []).
-
+testpr :- program([program, c, '(', input, ',', output, ')', ';'], []).
 
 /******************************************************************************/
 /* End of program                                                             */

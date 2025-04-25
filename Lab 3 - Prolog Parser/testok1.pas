@@ -1,4 +1,4 @@
-program testok1(input, output);  
+program a(input, output);  
 var A, B, C: integer;  
 
 begin
