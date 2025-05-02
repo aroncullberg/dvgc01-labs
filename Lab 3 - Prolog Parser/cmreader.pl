@@ -1,4 +1,5 @@
 :- ensure_loaded('parser.pl').
+:- ensure_loaded('lexer.pl').
 
 /******************************************************************************/
 /* From Programming in Prolog (4th Ed.) Clocksin & Mellish, Springer (1994)   */
@@ -21,6 +22,7 @@ restsent(_, C, [W1 | Ws ]) :- readword(C, W1, C1), restsent(W1, C1, Ws).
 /* and remembering what character came after the word (NB!)                   */
 /******************************************************************************/
 
+                  /*  is this C a ascii code?? */
 readword(C, W, _)  :- C = -1, W = C.                    /* added EOF handling */
 readword(C, W, C1) :- single_character( C ), name(W, [C]), get0(C1).
 readword(C, W, C2) :-
@@ -81,8 +83,10 @@ ttrace  :- trace, testread(['cmreader.txt']), notrace, nodebug.
 
 testread([]).
 testread([H|T]) :- nl, write('Testing C&M Reader, input file: '), write(H), nl,
-                   read_in(H,Tokens), 
-                   write('Tokenasdfasdfs = '), write(Tokens), nl,
+                   read_in(H,Tokens),  trace,
+                   write('Lexme = '), write(Tokens), nl,
+                   tokenize(Tokens, C),
+                   write('Tokens = '), write(C), nl,
                    (   phrase(program, Tokens, [])
                      ->  write('=> Parse OK!'), nl
                      ;   write('=> Parse Fail!'), nl
