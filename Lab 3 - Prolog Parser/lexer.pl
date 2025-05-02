@@ -17,19 +17,15 @@ token_value(var,          259).
 token_value(integer,      260).
 token_value(begin,        261).
 token_value(end,          262).
-token_value(assign,       271).
 token_value(undef,        273).
 token_value(eof,          275).
 token_value(nfound,       -1).
 
 convert_token(Token, Code) :- token_value(Token, Code), !.
 convert_token(Token, Code) :- number(Token), token_value(number, Code). 
-convert_token(Token, Code) :- trace, \+ number(Token), in_word_again(Token), token_value(id, Code), notrace.
+convert_token(Token, Code) :- atom(Token), token_value(id, Code).
 convert_token(_, Code) :- token_value(nfound, Code).
 
-in_word_again(C) :- C>96, C<123.             /* a b ... z */
-in_word_again(C) :- C>64, C<91.   /* A B ... Z */
-in_word_again(C) :- C>47, C<58.              /* 1 2 ... 9 */
 
 tokenize([], []). 
 tokenize([Token|Tokens], [Code|Codes]) :- convert_token(Token, Code), tokenize(Tokens, Codes). 

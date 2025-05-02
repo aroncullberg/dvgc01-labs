@@ -15,7 +15,12 @@ program       --> prog_head, var_part, stat_part.
 /* Program Header                                                             */
 /******************************************************************************/
 prog_head     --> [program], id, ['('], [input], [','], [output], [')'], [';'].
-id            --> [a]|[b]|[c].
+id --> [ID], {convert_token(ID, Code), Code = 270}.
+/* fucking retarded language sees empty variable and just has to fill         */
+/* it so we can just put any random fucking thing here and get it,            */
+/* you blody fucker                                                           */
+/* also if i put måsvinge around the thing then ID is only one thing          */
+/* but if i dont its 3 things??????????????????????????????????               */
 
 /******************************************************************************/
 /* Var_part                                                                   */
@@ -46,7 +51,7 @@ stat_list --> stat, [';'], stat_list.
         
 stat --> assign_stat.
 
-assign_stat --> id, [':'], ['='], expr.
+assign_stat --> id, [:=], expr.
 
 expr --> term   | term, op, expr.
 
@@ -64,6 +69,7 @@ addop --> ['+']; ['-'].
 mulop --> ['*']; ['/'].
 
 number --> [N], { number(N) }.
+
 
 /******************************************************************************/
 /* Testing the system: this may be done stepwise in Prolog                    */
