@@ -123,7 +123,19 @@ testread([H|T]) :- write('Testing C&M Reader, input file: '), write(H), nl,
                    nl, write(' end of C&M Reader test'), nl,
                    testread(T).
 
-pas_files(Dir, Files) :- 
+pas_files(Dir) :- 
+   directory_files(Dir, Entires),
+   process_group('testok', Dir, Entires).
+
+process_group(Prefix, Dir, Data) :-
+   write('Testing '), write(Prefix), writeln(' programs'),
+   include(has_prefix(Prefix, Dir), Data, ProcessData), 
+   writeln(ProcessData).
+
+has_prefix(Prefix, File) :-
+    atom_concat(Prefix, _, File).
+
+pas_files_old(Dir, Files) :- 
    directory_files(Dir, Entires),
    Patterns = [
       'testok' - '.pas',
