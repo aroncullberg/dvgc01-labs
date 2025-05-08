@@ -110,21 +110,24 @@ ttrace  :- trace, testread(['cmreader.txt']), notrace, nodebug.
 
 
 testread([]).
-testread([H|T]) :- write('Testing C&M Reader, input file: '), write(H), nl,
+testread([H|T]) :- nl, write('Testing '), write(H), nl,
                    read_in(H,Tokens),
                    write(Tokens), nl,
                    tokenize(Tokens, Magic),
                    write(Magic), nl,
                    (  phrase(program, Tokens, [])
-                     ->  write('Parse OK!'), nl
+                    ->  write('Parse OK!'), nl
                      ;   write('Parse Fail!'), nl
                    ),
-                   nl, write(' end of C&M Reader test'), nl,
+                   write(H), write(' end of parse'), nl,
                    testread(T).
 
 pas_files(Dir) :- 
    directory_files(Dir, Entires),
-   process_group('testok', Dir, Entires).
+   process_group('testok', Dir, Entires),
+   process_group('test', Dir, Entires),
+   process_group('fun', Dir, Entires),
+   process_group('sem', Dir, Entires).
 
 process_group(Prefix, Dir, Data) :-
    write('Testing '), label(Prefix, Label), write(Label), writeln(' programs'), nl,
@@ -140,6 +143,8 @@ process_group(Prefix, Dir, Data) :-
 
 
 label('testok', 'OK').
+label('test', 'a-z').
+label(A, A).
 
 concat_dir_fucn(Dir, Filename, Path) :- atomic_list_concat([Dir, '/', Filename], Path).
 
