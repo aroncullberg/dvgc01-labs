@@ -121,7 +121,9 @@ testread([H|T]) :- nl, write('Testing '), write(H), nl,
                    ),
                    write(H), write(' end of parse'), nl,
                    testread(T).
-
+                   
+                   
+testall   :- tell('cmreader.out'), pas_files('testfiles'), told.
 pas_files(Dir) :- 
    directory_files(Dir, Entires),
    process_group('testok', Dir, Entires),
@@ -129,16 +131,19 @@ pas_files(Dir) :-
    process_group('fun', Dir, Entires),
    process_group('sem', Dir, Entires).
 
-process_group(Prefix, Dir, Data) :-
-   write('Testing '), label(Prefix, Label), write(Label), writeln(' programs'), nl,
-   include(has_prefix(Prefix), Data, FilenameList),
+process_group(Base, Dir, Data) :-
+   write('Testing '), label(Base, Label), write(Label), writeln(' programs'),
+   include(
+      [Filename, Out] >> in_group(Base, Filename, Out), 
+      Data, 
+      FilenameList),
 
    maplist(
       [Filename, Path] >> concat_dir_fucn(Dir, Filename, Path), 
       FilenameList,  % in, maplist takes 
       Paths),        % out
 
-   testread(Paths).
+   testread(Paths), nl.
 
 
 
@@ -147,6 +152,12 @@ label('test', 'a-z').
 label(A, A).
 
 concat_dir_fucn(Dir, Filename, Path) :- atomic_list_concat([Dir, '/', Filename], Path).
+
+in_group(Base, Filename, Filename) :-
+   atom_concat(Base, Rest, Filename),
+   atom_concat(Magic, '.pas', Rest),
+   atom_chars(Magic, [_]).
+
 
 has_prefix(Prefix, File) :-
     atom_concat(Prefix, _, File).

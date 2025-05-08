@@ -21,9 +21,9 @@ token_value(undef,        273).
 token_value(-1,           275).
 token_value(nfound,       -1).
 
+convert_token(Token, Code) :- Token \= -1, number(Token), token_value(number, Code).
+convert_token(Token, Code) :- Token \= integer, Token \= program, Token \= begin, Token \= input, Token \= output, Token \= var, Token \= end, atom_chars(Token, [First | _]), char_type(First, alpha), atom(Token), token_value(id, Code).
 convert_token(Token, Code) :- token_value(Token, Code).
-convert_token(Token, Code) :- number(Token), token_value(number, Code). 
-convert_token(Token, Code) :- atom_chars(Token, [First | _]), char_type(First, alpha), atom(Token), token_value(id, Code).
 % atom
 % atom_chars
 % char_type
