@@ -134,7 +134,7 @@ pas_files(Dir) :-
 process_group(Base, Dir, Data) :-
    write('Testing '), label(Base, Label), write(Label), writeln(' programs'),
    include(
-      [Filename, Out] >> in_group(Base, Filename, Out), 
+      [Filename] >> in_group(Base, Filename), 
       Data, 
       FilenameList),
 
@@ -153,7 +153,8 @@ label(A, A).
 
 concat_dir_fucn(Dir, Filename, Path) :- atomic_list_concat([Dir, '/', Filename], Path).
 
-in_group(Base, Filename, Filename) :-
+% https://imgur.com/a/CI5iVAR
+in_group(Base, Filename) :-
    atom_concat(Base, Rest, Filename),
    atom_concat(Magic, '.pas', Rest),
    atom_chars(Magic, [_]).
