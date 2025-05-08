@@ -18,12 +18,16 @@ token_value(integer,      260).
 token_value(begin,        261).
 token_value(end,          262).
 token_value(undef,        273).
-token_value(eof,          275).
+token_value(-1,           275).
 token_value(nfound,       -1).
 
 convert_token(Token, Code) :- token_value(Token, Code), !.
 convert_token(Token, Code) :- number(Token), token_value(number, Code). 
-convert_token(Token, Code) :- atom(Token), token_value(id, Code).
+convert_token(Token, Code) :- atom_chars(Token, [First | _]), char_type(First, alpha), atom(Token), token_value(id, Code).
+% atom
+% atom_chars
+% char_type
+% all_alphanum
 convert_token(_, Code) :- token_value(nfound, Code).
 
 

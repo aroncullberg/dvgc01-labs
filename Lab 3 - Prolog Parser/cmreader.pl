@@ -24,22 +24,47 @@ restsent(_, C, [W1 | Ws ]) :- readword(C, W1, C1), restsent(W1, C1, Ws).
 
                   /*  is this C a ascii code?? */
 readword(C, W, _)  :- C = -1, W = C.                    /* added EOF handling */
+
+% C = first character in word
+% W = rest of word(?)         (probably empty on call i.e needs to be populated)
+% C2 = Character AFTER word   (empty on call i.e needs to be populated)
+readword(C, ':=', C2) :- 
+   C = 58,     % ':'
+   get0(C1), 
+   C1 = 61,     % '='
+   get0(C2).
+
 readword(C, W, C1) :- single_character( C ), name(W, [C]), get0(C1).
+
 readword(C, W, C2) :-
-   in_word(C, NewC ),
+   in_number(C, NewC),
+   get0(C1),
+   write("LSKDJF:LSDKFJS:LDFJKSD:FJKSD:F >>>>>>>>>>>>>"), write(NewC), nl,
+   restnumber(C1, Cs, C2),
+   name(W, [NewC|Cs]).
+
+readword(C, W, C2) :-
+   in_word(C, NewC),
    get0(C1),
    restword(C1, Cs, C2),
    name(W, [NewC|Cs]).
 
 readword(_, W, C2) :- get0(C1), readword(C1, W, C2).
 
+% checks if character is part of word, if yes then check next character
 restword(C, [NewC|Cs], C2) :-
    in_word(C, NewC),
    get0(C1),
    restword(C1, Cs, C2).
 
+% terminating rule
 restword(C, [ ], C).
 
+restnumber(C, [NewC|Cs], C2) :-
+   in_number(C, NewC),
+   get0(C1),
+   restnumber(C1, Cs, C2).
+restnumber(C, [ ], C).
 /******************************************************************************/
 /* These characters form words on their own                                   */
 /******************************************************************************/
@@ -63,6 +88,9 @@ in_word(C, C) :- C>96, C<123.             /* a b ... z */
 in_word(C, L) :- C>64, C<91, L is C+32.   /* A B ... Z */
 in_word(C, C) :- C>47, C<58.              /* 1 2 ... 9 */
 
+in_number(C, C) :- C>47, C<58.              /* 1 2 ... 9 */
+
+
 /******************************************************************************/
 /* These words terminate a sentence                                           */
 /******************************************************************************/
@@ -76,23 +104,46 @@ lastword('.').
 /* ttrace - file input + switch on tracing (check this carefully)             */
 /******************************************************************************/
 
-testa   :- testread(['cmreader.txt', 'testok1.pas']).
+testa   :- testread(['testfiles/fun2.pas']).
 testb   :- tell('cmreader.out'), testread(['cmreader.txt', 'testok1.pas']), told.
 
 ttrace  :- trace, testread(['cmreader.txt']), notrace, nodebug.
 
+
 testread([]).
-testread([H|T]) :- nl, write('Testing C&M Reader, input file: '), write(H), nl,
-                   read_in(H,Tokens),  trace,
-                   write('Lexme = '), write(Tokens), nl,
-                   tokenize(Tokens, C),
-                   write('Tokens = '), write(C), nl,
-                   (   phrase(program, Tokens, [])
-                     ->  write('=> Parse OK!'), nl
-                     ;   write('=> Parse Fail!'), nl
+testread([H|T]) :- write('Testing C&M Reader, input file: '), write(H), nl,
+                   read_in(H,Tokens),
+                   write(Tokens), nl,
+                   tokenize(Tokens, Magic),
+                   write(Magic), nl,
+                   (  phrase(program, Tokens, [])
+                     ->  write('Parse OK!'), nl
+                     ;   write('Parse Fail!'), nl
                    ),
                    nl, write(' end of C&M Reader test'), nl,
                    testread(T).
+
+pas_files(Dir, Files) :- 
+   directory_files(Dir, Entires),
+   Patterns = [
+      'testok' - '.pas',
+      'test'   - '.pas',
+      'fun'    - '.pas',
+      'sem'    - '.pas'
+   ],
+
+   findall(Path,
+      ( 
+         member(Base-FileType, Patterns),                   % https://imgur.com/a/rCG2Oyi
+         member(FileName, Entires),                         % =//=
+         FileName \= '.', FileName \= '..',                 % \= is oposite of = because of reasons (🤢🤮)
+         atom_concat(Base, Rest, FileName),                 % https://imgur.com/a/CI5iVAR
+         atom_concat(Middle, FileType, Rest),               % =//=
+         atom_length(Middle, 1),                            % QED
+         atomic_list_concat([Dir, '/', FileName], Path)     % https://imgur.com/a/8jmrXUa
+         
+      ),
+      Files).
 
 /******************************************************************************/
 /* end of program                                                             */
