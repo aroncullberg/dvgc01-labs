@@ -2,5 +2,5 @@ program fun2(input, output);
 var A, B, C: integer;
 
 begin
-A := B + C * 2
+3A := B + C * 2
 end.

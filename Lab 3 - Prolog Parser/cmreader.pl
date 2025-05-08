@@ -39,7 +39,6 @@ readword(C, W, C1) :- single_character( C ), name(W, [C]), get0(C1).
 readword(C, W, C2) :-
    in_number(C, NewC),
    get0(C1),
-   write("LSKDJF:LSDKFJS:LDFJKSD:FJKSD:F >>>>>>>>>>>>>"), write(NewC), nl,
    restnumber(C1, Cs, C2),
    name(W, [NewC|Cs]).
 
