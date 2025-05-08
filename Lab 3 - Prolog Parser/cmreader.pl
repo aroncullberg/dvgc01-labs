@@ -127,34 +127,26 @@ pas_files(Dir) :-
    process_group('testok', Dir, Entires).
 
 process_group(Prefix, Dir, Data) :-
-   write('Testing '), write(Prefix), writeln(' programs'),
-   include(has_prefix(Prefix, Dir), Data, ProcessData), 
-   writeln(ProcessData).
+   write('Testing '), label(Prefix, Label), write(Label), writeln(' programs'), nl,
+   include(has_prefix(Prefix), Data, FilenameList),
+
+   maplist(
+      [Filename, Path] >> concat_dir_fucn(Dir, Filename, Path), 
+      FilenameList,  % in, maplist takes 
+      Paths),        % out
+
+   testread(Paths).
+
+
+
+label('testok', 'OK').
+
+concat_dir_fucn(Dir, Filename, Path) :- atomic_list_concat([Dir, '/', Filename], Path).
 
 has_prefix(Prefix, File) :-
     atom_concat(Prefix, _, File).
 
-pas_files_old(Dir, Files) :- 
-   directory_files(Dir, Entires),
-   Patterns = [
-      'testok' - '.pas',
-      'test'   - '.pas',
-      'fun'    - '.pas',
-      'sem'    - '.pas'
-   ],
 
-   findall(Path,
-      ( 
-         member(Base-FileType, Patterns),                   % https://imgur.com/a/rCG2Oyi
-         member(FileName, Entires),                         % =//=
-         FileName \= '.', FileName \= '..',                 % \= is oposite of = because of reasons (🤢🤮)
-         atom_concat(Base, Rest, FileName),                 % https://imgur.com/a/CI5iVAR
-         atom_concat(Middle, FileType, Rest),               % =//=
-         atom_length(Middle, 1),                            % QED
-         atomic_list_concat([Dir, '/', FileName], Path)     % https://imgur.com/a/8jmrXUa
-         
-      ),
-      Files).
 
 /******************************************************************************/
 /* end of program                                                             */

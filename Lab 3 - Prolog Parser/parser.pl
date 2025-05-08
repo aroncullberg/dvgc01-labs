@@ -18,7 +18,7 @@ program       --> prog_head, var_part, stat_part.
 /* Program Header                                                             */
 /******************************************************************************/
 prog_head     --> [program], id, ['('], [input], [','], [output], [')'], [';'].
-id --> [ID], {writeln(ID), convert_token(ID, Code), Code = 270}.
+id --> [ID], {convert_token(ID, Code), Code = 270}.
 /* fucking retarded language sees empty variable and just has to fill         */
 /* it so we can just put any random fucking thing here and get it,            */
 /* you blody fucker                                                           */
