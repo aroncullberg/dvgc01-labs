@@ -1,3 +1,8 @@
+#*********************************
+# Aron Cullberg    -   aroncull100                                    
+# Viktor Hajto     -   vikthajt100                                    
+#*********************************
+
 #!/usr/bin/env python3
 from lexer import Lexer
 from symtab import SymTab

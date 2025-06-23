@@ -1,3 +1,7 @@
+#*********************************
+# Aron Cullberg    -   aroncull100                                    
+# Viktor Hajto     -   vikthajt100                                    
+#*********************************
 import sys
 from tokens import TokenType, lex2tok, key2tok
 

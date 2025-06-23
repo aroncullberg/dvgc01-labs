@@ -1,3 +1,8 @@
+#*********************************
+# Aron Cullberg    -   aroncull100                                    
+# Viktor Hajto     -   vikthajt100                                    
+#*********************************
+
 from enum import IntEnum
 
 
